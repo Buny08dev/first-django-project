@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Django
+db.sqlite3
+*.sqlite3
+.env
+
+# Virtual environment
+venv/
+
+# Media & static (agar deploy qilinmasa)
+media/
+staticfiles/
+
+# IDE
+.vscode/
+.idea/
