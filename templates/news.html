@@ -1,0 +1,105 @@
+{% extends "main.html" %}
+{% load static %}
+{% load tags %}
+
+{% block title %} News {% endblock %}
+
+
+{% block content_1 %}
+<div class="top-navbar">
+    <div class="nav-left">
+        <a href="{% url 'news' %}" class="nav-brand">ALL</a>
+        <ul class="nav-links">
+            {% for i in categories %}
+                <li><a href="?{% change_page_filter cat_slug=i.slug %}" class="active">{{ i }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="nav-right-actions">
+    <div class="filter-dropdown">
+        <button class="filter-btn">Filter <span>▼</span></button>
+        <div class="dropdown-content">
+            <a href="?default=all">Normal holat</a>
+            <a href="?on_sale=price">Narx: O'sish</a>
+            <a href="?on_sale=-price">Narx: Kamayish</a>
+        </div>
+    </div>
+
+    <form class="search-form">
+        <input type="text" placeholder="Search" aria-label="Search">
+        <button type="submit">Search</button>
+    </form>
+</div>
+</div>
+
+<h1>News</h1>
+<p>Xush kelibsiz News sahifaga</p>
+
+<div class="product-grid">
+    {% for n in products %}
+    <div class="card">
+        <div class="card-image">
+            {% if n.image %}
+                <img src="{{ n.image.url }}" alt="{{ n.name }}">
+            {% else %}
+                <img src="{% static 'image/beauty' %}" alt="No Image"> 
+            {% endif %}
+        </div>
+        <div class="card-content">
+            <h2 class="card-title">{{ n.name }}</h2>
+            <p class="card-text">{{ n.description|truncatechars:10 }}</p>
+            <h2 class="card-price">{{ n.price }} $</h2> 
+            <div class="card-meta">Quantity: {{ n.quantity }}</div>
+            <div class="actions">
+              <a class="btn update" href="{% url 'product_slug' n.category.slug n.slug %}">Info</a>
+              
+                <a class="btn update" href="{% url 'update' n.slug %}">Update</a>
+                <form action="{% url 'delete' n.slug %}" method="post">{% csrf_token %}
+                    <input class="btn delete" type="submit" value="delete">
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<h1>hamma page (products.paginator.num_pages):{{products.paginator.num_pages}}</h1>
+<h1>hozirgi page (products.number):{{ products.number }}</h1>
+
+{% if is_paginated %}
+<div class="pagination">
+    <div class="step-links">
+
+        {% if products.has_previous %}
+            <a href="?page=1" class="page-link">&laquo; first</a>
+            <a href="?{% change_page_filter page=products.previous_page_number %}" class="page-link">prev</a>
+        {% endif %}
+
+        {% for page in products.paginator.page_range %}
+
+            {% if products.number == page %}
+                <h1>{{products.page}}</h1>
+                <span class="page-link current">{{ page }}</span>
+            {% elif page > products.number|add:'-3' and page < products.number|add:'3' %}
+                <a href="?{% change_page_filter page=page %}" class="page-link">{{ page }}</a>
+            {% endif %}
+        
+        {% endfor %}
+
+        {% if products.has_next %}
+            <a href="?{% change_page_filter page=products.next_page_number %}" class="page-link next-btn">
+                <i class="arrow-right"></i>
+            </a>
+            <a href="?{% change_page_filter page=products.paginator.num_pages %}" class="page-link">last &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+{% block url_1 %} <a href="{% url 'home' %}">🏠 Asosiy</a> {% endblock %}
+{% block url_2 %} <a href="{% url 'about' %}">ℹ About</a> {% endblock %}

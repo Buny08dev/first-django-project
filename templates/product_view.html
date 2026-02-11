@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %} {{ products.name }} {% endblock %}
+
+{% block content_1 %}
+<div class="product-detail">
+
+    <div class="detail-image">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+            <img src="{% static 'image/beauty' %}" alt="No Image">
+        {% endif %}
+    </div>
+
+    <div class="detail-content">
+        <h1>{{ product.name }}</h1>
+
+        <p class="detail-description">
+            {{ product.description }}
+        </p>
+
+        <h2 class="detail-price">
+            {{ product.price }} $
+        </h2>
+
+        <p class="detail-qty">
+            Quantity: {{ product.quantity }}
+        </p>
+
+        <div class="detail-actions">
+            <a href="{% url 'news' %}" class="btn update">⬅ Back</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block url_1 %} <a href="{% url 'home' %}">🏠 Asosiy</a> {% endblock %}
+{% block url_2 %} <a href="{% url 'about' %}">ℹ About</a> {% endblock %}

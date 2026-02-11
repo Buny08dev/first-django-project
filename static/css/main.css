@@ -1,0 +1,312 @@
+/* 1. Umumiy sozlamalar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #2f2f2f;
+    display: flex;
+    height: 100vh;
+}
+
+/* 2. Sidebar (Aside) */
+aside {
+    width: 260px;
+    background: #1e1e1e;
+    padding: 20px;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #fff;
+}
+
+.logo span { color: #ff4b4b; }
+
+nav ul { list-style: none; }
+nav ul li { margin-bottom: 15px; }
+nav ul li a {
+    text-decoration: none;
+    color: #ddd;
+    transition: 0.3s;
+}
+nav ul li a:hover { color: #ff4b4b; padding-left: 5px; }
+
+/* 3. Asosiy kontent va Navbar */
+main {
+    flex: 1;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto; /* Kontent ko'payib ketsa skroll chiqishi uchun */
+}
+
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e1e1e;
+    padding: 15px 25px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.nav-left, .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-brand { color: white; text-decoration: none; font-weight: bold; }
+.nav-links { list-style: none; }
+.nav-links a { color: #999; text-decoration: none; }
+.nav-links a.active { color: white; }
+
+/* 4. Qidiruv paneli */
+.search-form { display: flex; gap: 10px; }
+.search-form input {
+    background: #2f2f2f;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 8px;
+    color: white;
+    outline: none;
+}
+.search-form button {
+    background: transparent;
+    color: #198754;
+    border: 1px solid #198754;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* 5. Mahsulotlar Grid tizimi (1 qatorda 4 ta) */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background: #1c1b1b;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.2s;
+}
+.card:hover { transform: translateY(-5px); }
+
+.card-image {
+    width: 100%;
+    height: 160px;
+    position: relative;
+}
+.card-image img { width: 100%; height: 100%; object-fit: cover; }
+.card-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #1c1b1b, transparent);
+}
+
+.card-content {
+    padding: 15px;
+    color: #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-title { font-size: 18px; margin-bottom: 8px; }
+.card-text { font-size: 13px; color: #cbd5e1; margin-bottom: 12px; flex-grow: 1; }
+.card-meta { font-size: 11px; color: #9ca3af; margin-bottom: 10px; }
+
+/* 6. Tugmalar */
+.actions { display: flex; gap: 8px; }
+.btn {
+    flex: 1;
+    padding: 6px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 12px;
+    text-decoration: none;
+    color: white;
+}
+.btn.update { background: #3b82f6; }
+.btn.delete { background: #ef4444; }
+
+/*  */
+.product-detail {
+    display: flex;
+    gap: 40px;
+    background: #1c1b1b;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.detail-image {
+    width: 40%;
+}
+.detail-image img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.detail-content {
+    width: 60%;
+    color: #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.detail-price {
+    color: #3b82f6;
+    font-size: 26px;
+}
+
+.detail-description {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+
+.step-links {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 10px;
+    background: #3a3a3a; /* Tugma foni */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.page-link:hover {
+    background: #4a4a4a;
+}
+
+.page-link.current {
+    background: #c2c2c2; /* Aktiv sahifa foni - rasmdagi kabi kulrang */
+    color: #1e1e1e;      /* Aktiv sahifa raqami rangi */
+    font-weight: bold;
+}
+
+/* Rasmdagi qora dumaloq o'ngga yo'naltirish tugmasi */
+.next-btn {
+    background: #000;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+}
+
+.arrow-right {
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+/* 1. O'ng tomon konteyneri */
+.nav-right-actions {
+    display: flex;
+    flex-direction: row;    /* Elementlarni gorizontal tekislaydi */
+    align-items: center;    /* Vertikal markazlashtiradi */
+    gap: 15px;              /* Filter va Search orasidagi masofa */
+}
+
+/* 2. Filter Dropdown */
+.filter-dropdown {
+    position: relative;     /* Ichidagi menyu shunga bog'lanadi */
+}
+
+.filter-btn {
+    background: #1e1e1e;
+    color: white;
+    border: 1px solid #444;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    height: 38px;           /* Hammasi bir xil balandlikda */
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+/* Dropdown kontenti tugmaga yaqinroq bo'lishi uchun */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;              /* Tugmaning pastki chegarasidan boshlanadi */
+    left: 0;
+    background-color: #1e1e1e;
+    min-width: 160px;       /* Biroz ixchamroq qildik */
+    z-index: 1000;
+    border: 1px solid #444;
+    border-radius: 6px;
+    margin-top: 2px;        /* 8px edi, 2px qildik - bu tugmaga yaqinlashtiradi */
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.5);
+    padding: 4px 0;         /* Ichki masofa */
+    overflow: hidden;
+}
+
+/* Linklar orasidagi masofani ham biroz zichroq qilish uchun */
+.dropdown-content a {
+    color: #ddd !important;
+    padding: 8px 16px;      /* 12px edi, 8px qildik */
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+/* Hover effektini saqlab qolamiz */
+.dropdown-content a:hover {
+    background-color: #333; /* Biroz ochroq rang */
+    color: #ff4b4b !important;
+}
+
+/* Tugma ustiga borganda ochilishi */
+.filter-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* 6. Search formasi */
+.search-form {
+    display: flex;
+    gap: 5px;
+}
+
+.search-form input, 
+.search-form button {
+    height: 38px;           /* Filter bilan bir xil balandlik */
+    display: flex;
+    align-items: center;
+}

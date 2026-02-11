@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'CSS/login.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Registerion</title>
+</head>
+<body class="auth-body" >
+<div class="auth-container">
+    <div id="signin-box">
+        <h2>Tizimga kirish</h2>
+        <p class="auth-subtitle">Yoki <a href="#" onclick="toggleForms()">ro'yxatdan o'ting</a></p>
+        
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="auth-form-group">
+                <label>Foydalanuvchi nomi yoki Email</label>
+                <input type="text" name="username" placeholder="Kiriting..." required>
+            </div>
+            
+            <div class="auth-form-group">
+                <label>Parol</label>
+                <input type="password" name="password" placeholder="******" required>
+            </div>
+            
+            <div class="auth-options">
+                <label class="remember-me">
+                    <input type="checkbox"> Eslab qolish
+                </label>
+                <a href="#" class="forgot-pw" style="color: #ff4b4b; text-decoration: none;">Parolni unutdingizmi?</a>
+            </div>
+            
+            <button type="submit" value="login" name="login" class="auth-btn">Kirish</button>
+        </form>
+
+        <div class="auth-divider"><span>Yoki davom eting</span></div>
+
+        <div class="auth-social-btns">
+            <button class="auth-social-item"><i class="fab fa-facebook-f" style="color: #1877F2;"></i></button>
+            <button class="auth-social-item"><i class="fab fa-twitter" style="color: #1DA1F2;"></i></button>
+            <button class="auth-social-item"><i class="fab fa-google" style="color: #DB4437;"></i></button>
+        </div>
+    </div>
+
+    <div id="signup-box" class="hidden">
+        <h2>Ro'yxatdan o'tish</h2>
+        <p class="auth-subtitle">Yoki <a href="#" onclick="toggleForms()">tizimga kiring</a></p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="auth-form-group">
+                <label>To'liq ismingiz</label>
+                <input type="text" name="username" placeholder="Ismingizni kiriting">
+            </div>
+
+            <div class="auth-form-group">
+                <label>Email manzil</label>
+                <input type="email" name="email" placeholder="example@mail.com">
+            </div>
+            
+            <div class="auth-form-group">
+                <label>Parol yarating</label>
+                <input type="password" name="password" placeholder="******">
+            </div>
+            
+            <button type="submit" value="sign on" name="login" class="auth-btn">Hisob yaratish</button>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'js/login.js' %}"></script>
+</body>
+</html>

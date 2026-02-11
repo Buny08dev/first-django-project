@@ -1,0 +1,38 @@
+{% load static %}
+{% load tags %}
+{% workk as func %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+
+<main>
+    <div class="top-navbar">
+        <div class="nav-left">
+            <a href="#" class="nav-brand">Bunyod</a>
+            <ul class="nav-links">
+                <li><a href="{% url func.news.url %}" class="active">News</a></li>
+                <li><a href="{% url func.about.url %}" class="active">About</a></li>
+                <li><a href="{% url func.test.url %}" class="active">Test</a></li>
+                <li><a href="{% url 'api-list' %}" class="active">Api</a></li>
+            </ul>
+        </div> 
+        
+        <form class="search-form">
+            <input type="text" placeholder="Search" aria-label="Search">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</main>
+    
+
+    <h1>{{title|title}}</h1>
+    <h1>{{ func.test.url }}</h1>
+
+</body>
+</html>

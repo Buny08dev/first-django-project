@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+<aside>
+    <div class="logo">
+        <span>&lt;/&gt;</span> Bunyod
+    </div>
+    <nav>
+        <ul>
+            <li>{% block url_1 %}{% endblock %}</li>
+            <li>{% block url_2 %}{% endblock %}</li>
+            <li><a href="{% url 'create' %}">⚙️ add </a></li>
+            <li><a href="{% url 'login' %}">⛩️ registrate </a></li>
+        </ul>
+    </nav>
+</aside>
+<main>
+    {% block content_1 %}{% endblock %}
+    {% include 'create_include.html' with object=agree form=form %}
+</main>
+</body>
+</html>
+

@@ -1,0 +1,80 @@
+/* Top Navbar Dizayni */
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e1e1e; /* Aside bilan bir xil fon */
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin-bottom: 25px; /* Pastdagi kontentdan masofa */
+    border: 1px solid #333;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-brand {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
+.nav-links a {
+    color: #999;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: white;
+}
+
+/* Qidiruv qismi */
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input {
+    background: #2f2f2f;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: white;
+    outline: none;
+    width: 200px;
+}
+
+.search-form input:focus {
+    border-color: #198754;
+}
+
+.search-form button {
+    background: transparent;
+    color: #198754;
+    border: 1px solid #198754;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-form button:hover {
+    background: #198754;
+    color: white;
+}
+
+/* Main paddingini biroz moslash */
+main {
+    padding: 20px 40px !important;
+}
