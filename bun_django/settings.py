@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "bun_users.apps.BunUsersConfig",
     'rest_framework',
     'django.contrib.postgres',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
