@@ -29,7 +29,7 @@ class Products(models.Model):
     slug=models.SlugField(max_length=200,verbose_name="Slug")
     description=models.TextField(verbose_name="Product haqida")
     image=models.ImageField(blank=True,null=True,verbose_name="Rasm")
-    price=models.DecimalField(max_digits=7,decimal_places=2,verbose_name="Narx")
+    price=models.DecimalField(max_digits=11,decimal_places=2,verbose_name="Narx")
     quantity=models.PositiveIntegerField(verbose_name="Soni")
     created_time=models.DateField(verbose_name="Vaqt",auto_now_add=True)
     updt_time=models.DateTimeField(verbose_name="Yangilangan vaqti",auto_now=True)

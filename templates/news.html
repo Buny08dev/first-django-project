@@ -51,8 +51,15 @@
             {% endif %}
         </div>
         <div class="card-content">
-            <h2 class="card-title">{{ n.name }}</h2>
+            {% if n.headline %}
+            {% autoescape off %}
+            <h2 class="card-title">{{ n.headline }} </h2>
+            <p class="card-text">{{ n.bodyline|truncatechars:100 }}</p>
+            {% endautoescape off %}
+            {% else %}
+            <h2 class="card-title">{{ n.name }}  </h2>
             <p class="card-text">{{ n.description|truncatechars:10 }}</p>
+            {% endif %}
             <h2 class="card-price">{{ n.price }} $</h2> 
             <div class="card-meta">Quantity: {{ n.quantity }}</div>
             <div class="actions">
@@ -100,7 +107,7 @@
         {% endif %}
     </div>
 </div>
-{% else %}
+{% elif not products %}
 <h1>NO RESULT</h1>
 {% endif %}
 
