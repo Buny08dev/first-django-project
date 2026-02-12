@@ -20,7 +20,6 @@ urlpatterns = [
     path('delete/<slug:slug>/',DeleteProductView.as_view(),name="delete"),
     path('update/<slug:slug>/',UpdateProductView.as_view(),name='update'),
     # decorative urls
-    # path("news/<slug:slug>/",NewsView.as_view(), name="news_slug"),
     path("news/<slug:category_slug>/<slug:product_slug>",ProductView.as_view(), name="product_slug"),
     # api
     path('',include(router.urls))

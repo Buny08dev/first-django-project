@@ -1,18 +1,19 @@
 from django.shortcuts import render,redirect, get_object_or_404,get_list_or_404
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.views.generic import FormView,ListView,View,DetailView,TemplateView,DeleteView,UpdateView
-from django.core.paginator import Paginator
+# from django.core.paginator import Paginator
 from django.urls import reverse_lazy
+# from django.contrib import messages
 #  rest_framework
-from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView,UpdateAPIView,CreateAPIView,RetrieveUpdateDestroyAPIView
-from rest_framework.response import Response
+# from rest_framework.views import APIView
+# from rest_framework.generics import ListAPIView,UpdateAPIView,CreateAPIView,RetrieveUpdateDestroyAPIView
+# from rest_framework.response import Response
 from rest_framework import viewsets
-
-# 
-from bun_core.forms import AddProduct
+# bunbase
+from bun_core.forms import AddProduct,SearchForm
 from bun_core.models import bunbase,Categories,Products
 from bun_core.serializers import ProductsApiForm
+from bun_core.func import search_func
 
 # bunbase.objects.values("id", "title")
 
@@ -37,20 +38,6 @@ from bun_core.serializers import ProductsApiForm
 class ProductsViewSet(viewsets.ModelViewSet):
     queryset=Products.objects.all()
     serializer_class=ProductsApiForm
-
-
-# class ProductApi(ListAPIView):
-#    queryset=Products.objects.all()
-#    serializer_class=ProductsApiForm
-
-# class ProductViewApi(RetrieveUpdateDestroyAPIView):
-#    queryset=Products.objects.all()
-#    serializer_class=ProductsApiForm
-
-# class ProductCreateApi(CreateAPIView):
-#    queryset=Products.objects.all()
-#    serializer_class=ProductsApiForm
-
 # Create your views here.
 class MainView(View):
     def get(self,request):
@@ -65,12 +52,17 @@ class NewsView(ListView):
     def get_queryset(self,*args,**kwargs):
         queryset = super().get_queryset(*args,**kwargs)
         # print("\n",self.request.GET,"\n1")
+        search=self.request.GET.get('search','s')
+
+        form = SearchForm(self.request.GET)
+        if form.is_valid():
+            search = form.cleaned_data.get('search')
+            if search and len(search) > 2:
+                search_func(search)
 
         slug=self.request.GET.get("cat_slug")
         if slug:
-            print(slug)
             queryset=queryset.filter(category__slug=slug)
-
 
         pr=self.request.GET.get("default")
         if pr:
@@ -79,7 +71,6 @@ class NewsView(ListView):
         pr_1=self.request.GET.get("on_sale")
         if pr_1:
             queryset=queryset.all().order_by(pr_1)
-            # print(queryset.all().order_by(pr_1),pr_1)
 
         return queryset
 
@@ -87,7 +78,9 @@ class NewsView(ListView):
         context = super().get_context_data(**kwargs)
         # print("\n",context,"\n")
         context["categories"] = Categories.objects.all()
+        context["searchform"] = SearchForm(self.request.GET)
         context["products"]=context['page_obj']
+
         return context
 
 class ProductView(DetailView):

@@ -26,15 +26,14 @@
         </div>
     </div>
 
-    <form class="search-form">
-        <input type="text" placeholder="Search" aria-label="Search">
+    <form method="get" class="search-form">
+        {{searchform}}
         <button type="submit">Search</button>
     </form>
 </div>
 </div>
 
 <h1>News</h1>
-<p>Xush kelibsiz News sahifaga</p>
 
 <div class="product-grid">
     {% for n in products %}
@@ -65,8 +64,8 @@
 </div>
 
 
-<h1>hamma page (products.paginator.num_pages):{{products.paginator.num_pages}}</h1>
-<h1>hozirgi page (products.number):{{ products.number }}</h1>
+<!-- <h1>hamma page (products.paginator.num_pages):{{products.paginator.num_pages}}</h1>
+<h1>hozirgi page (products.number):{{ products.number }}</h1> -->
 
 {% if is_paginated %}
 <div class="pagination">

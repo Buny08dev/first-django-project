@@ -37,3 +37,4 @@ def change_page_filter(context,**kwargs):
     query.update(kwargs)
     
     return urlencode(query)
+
