@@ -27,7 +27,12 @@
     </div>
 
     <form method="get" class="search-form">
-        {{searchform}}
+        {{searchform.search}}
+        {% if searchform.search.errors %}
+            <div class="alert-error">
+                ⚠ {{ searchform.search.errors.0 }}
+            </div>
+        {% endif %}
         <button type="submit">Search</button>
     </form>
 </div>
@@ -95,6 +100,8 @@
         {% endif %}
     </div>
 </div>
+{% else %}
+<h1>NO RESULT</h1>
 {% endif %}
 
 {% endblock %}

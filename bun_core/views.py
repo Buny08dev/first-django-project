@@ -51,14 +51,13 @@ class NewsView(ListView):
     
     def get_queryset(self,*args,**kwargs):
         queryset = super().get_queryset(*args,**kwargs)
-        # print("\n",self.request.GET,"\n1")
-        search=self.request.GET.get('search','s')
+        # print("\n",self.request.GET,"\n1"
 
         form = SearchForm(self.request.GET)
         if form.is_valid():
             search = form.cleaned_data.get('search')
-            if search and len(search) > 2:
-                search_func(search)
+            if len(search.strip())>2 and len(search) > 2:
+                queryset=search_func(queryset,search)
 
         slug=self.request.GET.get("cat_slug")
         if slug:
