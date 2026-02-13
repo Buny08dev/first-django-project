@@ -5,39 +5,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'CSS/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Registerion</title>
+    <title>Registration</title>
 </head>
 <body class="auth-body" >
 <div class="auth-container">
     <div id="signin-box">
+        <div class="auth-back">
+            <a href="{% url 'news' %}" class="back-link">
+                <i class="fas fa-arrow-left"></i> Orqaga
+            </a>
+         </div>
+         
         <h2>Tizimga kirish</h2>
         <p class="auth-subtitle">Yoki <a href="#" onclick="toggleForms()">ro'yxatdan o'ting</a></p>
         
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            <div class="auth-form-group">
-                <label>Foydalanuvchi nomi yoki Email</label>
-                <input type="text" name="username" placeholder="Kiriting..." required>
-            </div>
+            {% for field in form %}
+                <div class="auth-form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="error-text" style="color: red; font-size: 12px;">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
             
-            <div class="auth-form-group">
-                <label>Parol</label>
-                <input type="password" name="password" placeholder="******" required>
-            </div>
-            
+            {% if form.non_field_errors %}
+                <a href="#" class="forgot-pw" style="color: #ff4b4b; text-decoration: none;">Parolni unutdingizmi?</a>
+                <br>
+                <div style="background-color: #ffe6e6; color: #d93025; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% else %}
             <div class="auth-options">
                 <label class="remember-me">
                     <input type="checkbox"> Eslab qolish
                 </label>
                 <a href="#" class="forgot-pw" style="color: #ff4b4b; text-decoration: none;">Parolni unutdingizmi?</a>
             </div>
-            
+            {% endif %}         
             <button type="submit" value="login" name="login" class="auth-btn">Kirish</button>
         </form>
-
+        <br>
         <div class="auth-divider"><span>Yoki davom eting</span></div>
 
         <div class="auth-social-btns">

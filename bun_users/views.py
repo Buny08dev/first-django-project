@@ -1,27 +1,36 @@
 from django.shortcuts import render,redirect, get_object_or_404,get_list_or_404
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,FormView
 from django.contrib.auth import logout,login,authenticate
 from django.contrib.auth.models import User
-
+from bun_users.forms import UsersForm
+# from django.contrib.auth.views import LoginView
 # Create your views here.
 
 class Registerview(TemplateView):
     template_name='login.html'
 
-    def post(self,*args,**kwargs):
-        username=self.request.POST.get('username')
-        password=self.request.POST.get('password')
-        email=self.request.POST.get('email',None)
-        login_pass=self.request.POST.get('login')
+   
+
+class Loginview(FormView):
+    form_class=UsersForm
+    template_name='login.html'
+    
+    def form_valid(self,form:UsersForm):
+
+        username=form.cleaned_data.get('username')
+        password=form.cleaned_data.get('password')
         
-        user=authenticate(self.request, username=username, password=password)
-
-        if login_pass=="login":
+        user=authenticate(username=username, password=password)
+    
+        print(user,'*'*100)
+    
+        if user is not None:
             login(self.request,user)
             return redirect('news')
-        elif login_pass=='sign on':
-            user = User.objects.create(username=username,email=email,password=password) 
-            login(self.request,user)
-            return redirect('news')
-
-        return render(self.request,self.template_name)
+        else:
+            form.add_error(None, "Ism yoki parol xato kiritildi!")
+            return self.form_invalid(form)
+    
+    def form_invalid(self, form):
+        print("Xatoliklar lug'ati:", form.non_field_errors)
+        return super().form_invalid(form)

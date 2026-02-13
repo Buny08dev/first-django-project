@@ -165,3 +165,5 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     ]
 }
+
+AUTH_USER_MODEL='bun_users.UserMod'

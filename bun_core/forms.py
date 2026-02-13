@@ -29,7 +29,6 @@ class SearchForm(forms.Form):
         if not data:
             return data
         if len(data.strip())<=2:
-            raise forms.ValidationError("togri kirit")
-        
-        
+            raise forms.ValidationError("To`g`ri kirit!")
+
         return data

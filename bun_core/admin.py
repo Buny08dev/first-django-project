@@ -24,4 +24,5 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ("created_time", "price")
     search_fields = ("name", "slug")
     list_per_page = 8
+    readonly_fields = ("created_time", "updt_time")
     # date_hierarchy = "created_time"

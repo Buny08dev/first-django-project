@@ -31,9 +31,10 @@ class Products(models.Model):
     image=models.ImageField(blank=True,null=True,verbose_name="Rasm")
     price=models.DecimalField(max_digits=11,decimal_places=2,verbose_name="Narx")
     quantity=models.PositiveIntegerField(verbose_name="Soni")
+
     created_time=models.DateField(verbose_name="Vaqt",auto_now_add=True)
     updt_time=models.DateTimeField(verbose_name="Yangilangan vaqti",auto_now=True)
-    
+
     category=models.ForeignKey(to=Categories,on_delete=models.CASCADE,related_name="products")
 
     def __str__(self):
