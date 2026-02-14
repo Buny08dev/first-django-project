@@ -17,7 +17,7 @@ class Registerview(FormView):
     def form_valid(self, form:RegisterForm):
         
         print("*"*100,form.cleaned_data)
-        
+
         # user=form.save()
         # login(self.request,user)
 
@@ -25,7 +25,7 @@ class Registerview(FormView):
     
     def form_invalid(self, form:RegisterForm):
 
-        print(form.cleaned_data)
+        # print(form.cleaned_data)
         
         return super().form_invalid(form)
 

@@ -1,6 +1,6 @@
 from django import template
 from django.utils.http import urlencode
-from pprint import pprint
+
 
 register = template.Library()
 

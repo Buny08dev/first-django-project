@@ -51,7 +51,8 @@ class NewsView(ListView):
     
     def get_queryset(self,*args,**kwargs):
         queryset = super().get_queryset(*args,**kwargs)
-        # print("\n",self.request.GET,"\n1")
+
+        print("\n",self.request.GET,"\n")
 
         form = SearchForm(self.request.GET)
         if form.is_valid():
@@ -69,7 +70,7 @@ class NewsView(ListView):
 
         pr_1=self.request.GET.get("on_sale")
         if pr_1:
-            queryset=queryset.all().order_by(pr_1)
+            queryset=queryset.order_by(pr_1)
 
         return queryset
 
@@ -97,7 +98,7 @@ class AboutView(TemplateView):
 
 def create_(request):
     if request.method=="POST":
-        print("ishladi")
+        # print("ishladi")
         form=AddProduct(request.POST,request.FILES)
         if form.is_valid():
             form.save()

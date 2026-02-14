@@ -20,9 +20,9 @@
     <div class="filter-dropdown">
         <button class="filter-btn">Filter <span>▼</span></button>
         <div class="dropdown-content">
-            <a href="?default=all">Normal holat</a>
-            <a href="?on_sale=price">Narx: O'sish</a>
-            <a href="?on_sale=-price">Narx: Kamayish</a>
+            <a href="?{% change_page_filter default='all' %}">Normal holat</a>
+            <a href="?{% change_page_filter on_sale='price' %}">Narx: O'sish</a>
+            <a href="?{% change_page_filter on_sale='-price' %}">Narx: Kamayish</a>
         </div>
     </div>
 
