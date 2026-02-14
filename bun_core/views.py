@@ -51,7 +51,7 @@ class NewsView(ListView):
     
     def get_queryset(self,*args,**kwargs):
         queryset = super().get_queryset(*args,**kwargs)
-        # print("\n",self.request.GET,"\n1"
+        # print("\n",self.request.GET,"\n1")
 
         form = SearchForm(self.request.GET)
         if form.is_valid():

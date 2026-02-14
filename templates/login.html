@@ -12,7 +12,7 @@
 </head>
 <body class="auth-body" >
 <div class="auth-container">
-    <div id="signin-box">
+    <div id="signin-box" class="{% if show_signup %}hidden{% endif %}">
         <div class="auth-back">
             <a href="{% url 'news' %}" class="back-link">
                 <i class="fas fa-arrow-left"></i> Orqaga
@@ -21,8 +21,26 @@
          
         <h2>Tizimga kirish</h2>
         <p class="auth-subtitle">Yoki <a href="#" onclick="toggleForms()">ro'yxatdan o'ting</a></p>
-        
         <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <!-- <div class="auth-form-group">
+                <label>Foydalanuvchi nomi yoki Email</label>
+                <input type="text" name="username" placeholder="Kiriting..." required>
+            </div>
+            <div class="auth-form-group">
+                <label>Parol</label>
+                <input type="password" name="password" placeholder="******" required>
+            </div>
+            <div class="auth-options">
+                <label class="remember-me">
+                    <input type="checkbox"> Eslab qolish
+                </label>
+                <br>
+                <a href="#" class="forgot-pw" style="color: #ff4b4b; text-decoration: none;">Parolni unutdingizmi?</a>
+            </div>
+            <button type="submit" value="login" name="login" class="auth-btn">Kirish</button>
+        </form> -->
+        <form method="post" action="{% url 'login' %}" novalidate>
             {% csrf_token %}
             {% for field in form %}
                 <div class="auth-form-group">
@@ -37,11 +55,17 @@
             {% endfor %}
             
             {% if form.non_field_errors %}
-                <a href="#" class="forgot-pw" style="color: #ff4b4b; text-decoration: none;">Parolni unutdingizmi?</a>
-                <br>
-                <div style="background-color: #ffe6e6; color: #d93025; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                <a href="#" class="forgot-pw" style="color: #ff4b4b; text-decoration: none; display: block; margin-bottom: 5px;">
+                    Parolni unutdingizmi?
+                </a>
+                <div id="error-container" style="background-color: #ffe6e6; color: #d93025; padding: 10px; border-radius: 5px; margin-bottom: 15px; position: relative;">
+                    <span onclick="document.getElementById('error-container').style.display='none'" 
+                        style="position: absolute; top: 5px; right: 10px; cursor: pointer; font-weight: bold; font-size: 18px;">
+                        &times;
+                    </span>
+
                     {% for error in form.non_field_errors %}
-                        {{ error }}
+                        <div style="padding-right: 20px;">{{ error }}</div>
                     {% endfor %}
                 </div>
             {% else %}
@@ -64,12 +88,13 @@
         </div>
     </div>
 
-    <div id="signup-box" class="hidden">
+    <div id="signup-box" class="{% if not show_signup %} hidden {% endif %}">
         <h2>Ro'yxatdan o'tish</h2>
         <p class="auth-subtitle">Yoki <a href="#" onclick="toggleForms()">tizimga kiring</a></p>
         
-        <form method="post">
+        <form method="post" action="{% url 'reg' %}">
             {% csrf_token %}
+            <!-- {{ form }} -->
             <div class="auth-form-group">
                 <label>To'liq ismingiz</label>
                 <input type="text" name="username" placeholder="Ismingizni kiriting">
@@ -84,9 +109,22 @@
                 <label>Parol yarating</label>
                 <input type="password" name="password" placeholder="******">
             </div>
+
+            <div class="auth-form-group">
+                <label>Parolni qayta kiriting</label>
+                <input type="password" name="password2" placeholder="******">
+            </div>
             
             <button type="submit" value="sign on" name="login" class="auth-btn">Hisob yaratish</button>
         </form>
+        <div class="auth-divider"><span>Yoki davom eting</span></div>
+
+        <div class="auth-social-btns">
+            <button class="auth-social-item"><i class="fab fa-facebook-f" style="color: #1877F2;"></i></button>
+            <button class="auth-social-item"><i class="fab fa-twitter" style="color: #1DA1F2;"></i></button>
+            <button class="auth-social-item"><i class="fab fa-google" style="color: #DB4437;"></i></button>
+        </div>
+    
     </div>
 </div>
 
