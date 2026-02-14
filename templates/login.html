@@ -12,7 +12,7 @@
 </head>
 <body class="auth-body" >
 <div class="auth-container">
-    <div id="signin-box" class="{% if show_signup %}hidden{% endif %}">
+    <div id="signin-box" class="">
         <div class="auth-back">
             <a href="{% url 'news' %}" class="back-link">
                 <i class="fas fa-arrow-left"></i> Orqaga
@@ -20,7 +20,7 @@
          </div>
          
         <h2>Tizimga kirish</h2>
-        <p class="auth-subtitle">Yoki <a href="#" onclick="toggleForms()">ro'yxatdan o'ting</a></p>
+        <p class="auth-subtitle">Yoki <a href="{% url 'reg' %}" >ro'yxatdan o'ting</a></p>
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <!-- <div class="auth-form-group">
@@ -86,45 +86,6 @@
             <button class="auth-social-item"><i class="fab fa-twitter" style="color: #1DA1F2;"></i></button>
             <button class="auth-social-item"><i class="fab fa-google" style="color: #DB4437;"></i></button>
         </div>
-    </div>
-
-    <div id="signup-box" class="{% if not show_signup %} hidden {% endif %}">
-        <h2>Ro'yxatdan o'tish</h2>
-        <p class="auth-subtitle">Yoki <a href="#" onclick="toggleForms()">tizimga kiring</a></p>
-        
-        <form method="post" action="{% url 'reg' %}">
-            {% csrf_token %}
-            <!-- {{ form }} -->
-            <div class="auth-form-group">
-                <label>To'liq ismingiz</label>
-                <input type="text" name="username" placeholder="Ismingizni kiriting">
-            </div>
-
-            <div class="auth-form-group">
-                <label>Email manzil</label>
-                <input type="email" name="email" placeholder="example@mail.com">
-            </div>
-            
-            <div class="auth-form-group">
-                <label>Parol yarating</label>
-                <input type="password" name="password" placeholder="******">
-            </div>
-
-            <div class="auth-form-group">
-                <label>Parolni qayta kiriting</label>
-                <input type="password" name="password2" placeholder="******">
-            </div>
-            
-            <button type="submit" value="sign on" name="login" class="auth-btn">Hisob yaratish</button>
-        </form>
-        <div class="auth-divider"><span>Yoki davom eting</span></div>
-
-        <div class="auth-social-btns">
-            <button class="auth-social-item"><i class="fab fa-facebook-f" style="color: #1877F2;"></i></button>
-            <button class="auth-social-item"><i class="fab fa-twitter" style="color: #1DA1F2;"></i></button>
-            <button class="auth-social-item"><i class="fab fa-google" style="color: #DB4437;"></i></button>
-        </div>
-    
     </div>
 </div>
 

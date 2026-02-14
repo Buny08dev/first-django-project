@@ -1,8 +1,12 @@
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from bun_users.models import UserMod
 from django import forms
+import re
+from django.core.exceptions import ValidationError
+# from django.contrib.auth.validators import UnicodeUsernameValidator
 
-class UsersForm(AuthenticationForm):
+
+class LoginForm(AuthenticationForm):
     use_required_attribute= False
     
     username = forms.CharField(
@@ -33,6 +37,20 @@ class UsersForm(AuthenticationForm):
     class Meta:
         model=UserMod
 
+
 class RegisterForm(UserCreationForm):
+
     class Meta:
-        meta=UserMod
+        model=UserMod
+        fields = ("username", "email", "password1", "password2")
+    
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        # Taqiqlangan belgilar: + - $ % #
+        forbidden_chars = r'[+\-\$%#!@%^&*]' 
+        
+        if re.search(forbidden_chars, username):
+            raise ValidationError(
+                "Foydalanuvchi nomida (+ - $ % # ! @ % ^ & *) belgilarini ishlatish mumkin emas!"
+            )
+        return username

@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Registration</title>
+</head>
+<body class="auth-body" >
+<div class="auth-container">
+    <div id="signup-box" class="">
+         <div class="auth-back">
+            <a href="{% url 'news' %}" class="back-link">
+                <i class="fas fa-arrow-left"></i> Orqaga
+            </a>
+         </div>
+
+        <h2>Ro'yxatdan o'tish</h2>
+        <p class="auth-subtitle">Yoki <a href="{% url 'login' %}">tizimga kiring</a></p>
+        
+        <form method="post" action="{% url 'reg' %}" novalidate>
+            {% csrf_token %}
+            <!-- {{ form }} -->
+
+
+            <div class="auth-form-group">
+                <label>To'liq ismingiz</label>
+                <input type="text" name="username" placeholder="Ismingizni kiriting">
+            </div>
+            {% if form.username.errors %}
+                <div class="error-text" style="color: red; font-size: 12px;">{{ form.username.errors }} </div>
+            {% endif %}
+
+            <div class="auth-form-group">
+                <label>Email manzil</label>
+                <input type="email" name="email" placeholder="example@mail.com">
+            </div>
+            {% if form.email.errors %}
+                <div class="error-text" style="color: red; font-size: 12px;">{{ form.email.errors }}</div>
+            {% endif %}
+
+            
+            <div class="auth-form-group">
+                <label>Parol yarating</label>
+                <input type="password" name="password1" placeholder="******">
+            </div>
+            {% if form.password1.errors %}
+                <div class="error-text" style="color: red; font-size: 12px;">{{ form.password1.errors }}</div>
+            {% endif %}
+
+            <div class="auth-form-group">
+                <label>Parolni qayta kiriting</label>
+                <input type="password" name="password2" placeholder="******">
+            </div>
+            {% if form.password2.errors %}
+                <div class="error-text" style="color: red; font-size: 12px;">{{ form.password2.errors }}</div>
+            {% endif %}
+
+            <button type="submit" value="sign on" name="login" class="auth-btn">Hisob yaratish</button>
+        </form>
+        <div class="auth-divider"><span>Yoki davom eting</span></div>
+
+        <div class="auth-social-btns">
+            <button class="auth-social-item"><i class="fab fa-facebook-f" style="color: #1877F2;"></i></button>
+            <button class="auth-social-item"><i class="fab fa-twitter" style="color: #1DA1F2;"></i></button>
+            <button class="auth-social-item"><i class="fab fa-google" style="color: #DB4437;"></i></button>
+        </div>
+    
+    </div>
+</div>
+
+<script src="{% static 'js/login.js' %}"></script>
+</body>
+</html>
