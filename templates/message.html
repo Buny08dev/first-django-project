@@ -1,0 +1,21 @@
+{% if messages %}
+    <div id="messages-container" class="messages-wrapper">
+        {% for message in messages %}
+            <div class="message-item {{ message.tags }}">
+                <div class="msg-content">
+                    <span class="message-icon">
+                        {% if message.tags == 'success' %}
+                            <i class="fas fa-check-circle"></i> ✅
+                        {% elif message.tags == 'error' %}
+                            <i class="fas fa-exclamation-triangle"></i> ⚠️
+                        {% else %}
+                            <i class="fas fa-info-circle"></i> ℹ️
+                        {% endif %}
+                    </span>
+                    <p class="message-text">{{ message }}</p>
+                </div>
+                <button class="close-msg" onclick="this.parentElement.classList.add('fade-out'); setTimeout(() => this.parentElement.remove(), 500)">×</button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

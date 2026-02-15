@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+
+{% block title %} Profile {% endblock %}
+
+{% block content_1 %}
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <div class="profile-avatar">
+            {% if user.avatar %}
+                <img src="{{ user.avatar.url }}">
+            {% else %}
+                <div class="avatar-placeholder">
+                    {{ user.username|first|upper }}
+                </div>
+            {% endif %}
+        </div>
+
+        <h2>{{ user.username }}</h2>
+        <p>{{ user.email }}</p>
+
+        <div class="profile-info">
+            <div>
+                <span>ID</span>
+                <strong>{{ user.id }}</strong>
+            </div>
+
+            <div>
+                <span>Date joined</span>
+                <strong>{{ user.date_joined|date:"Y-m-d" }}</strong>
+            </div>
+
+            <div>
+                <span>Status</span>
+                <strong>
+                    {% if user.is_superuser %}
+                        Admin
+                    {% else %}
+                        User
+                    {% endif %}
+                </strong>
+            </div>
+        </div>
+
+        <a href="#" class="edit-btn">Edit profile</a>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block url_1 %} <a href="{% url 'home' %}">🏠 Asosiy</a> {% endblock %}
+{% block url_2 %} <a href="{% url 'about' %}">ℹ About</a> {% endblock %}
+{% block url_3 %} <a href="{% url 'news' %}">ℹ News</a> {% endblock %}

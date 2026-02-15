@@ -17,8 +17,7 @@ class LoginForm(AuthenticationForm):
             'placeholder': 'Foydalanuvchi nomi',
             'required': False ,
         }),
-        error_messages={"required":"bosh bolmasin"}
-
+        error_messages={"required":"Majburiy bolim"}
     )
     password = forms.CharField(
         label="Parol", # 'Password' o'rniga 'Parol' chiqadi
@@ -28,7 +27,7 @@ class LoginForm(AuthenticationForm):
             'placeholder': 'Parol',
             'required': False ,
         }),
-        error_messages={"required":"bosh bolmasin"}
+        error_messages={"required":"Majburiy bolim"}
     )
     error_messages = {
         'invalid_login': "Ism yoki parol xato kiritildi. Iltimos, qaytadan tekshiring!",
@@ -40,9 +39,11 @@ class LoginForm(AuthenticationForm):
 
 class RegisterForm(UserCreationForm):
 
+    # password1=forms.CharField(required=True,widget=forms.TextInput(attrs={"":""}),error_messages={"required":"idinaxuy"})
+    
     class Meta:
         model=UserMod
-        fields = ("username", "email", "password1", "password2")
+        fields = ("username", "email", "phone", "password1", "password2")
     
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -53,4 +54,14 @@ class RegisterForm(UserCreationForm):
             raise ValidationError(
                 "Foydalanuvchi nomida (+ - $ % # ! @ % ^ & *) belgilarini ishlatish mumkin emas!"
             )
+        
         return username
+    
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+
+        if not re.match(r'^\+998\d{9}$', phone):
+            raise ValidationError("Telefon raqam +998(XX)-XXX-XX-XX formatda bo‘lishi kerak")
+        if UserMod.objects.filter(phone=phone).exists():
+            raise ValidationError("Bu telefon raqam allaqachon mavjud!")
+        return phone

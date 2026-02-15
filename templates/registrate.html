@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Registration</title>
+    
 </head>
 <body class="auth-body" >
 <div class="auth-container">
@@ -33,6 +34,14 @@
             </div>
             {% if form.username.errors %}
                 <div class="error-text" style="color: red; font-size: 12px;">{{ form.username.errors }} </div>
+            {% endif %}
+            
+            <div class="auth-form-group">
+                <label>Telefon raqamingiz</label>
+                <input type="tel" id="phone_input" name="phone" value="+998" maxlength="13">
+            </div>
+            {% if form.phone.errors %}
+                <div class="error-text" style="color: red; font-size: 12px;">{{ form.phone.errors }}</div>
             {% endif %}
 
             <div class="auth-form-group">
@@ -74,5 +83,36 @@
 </div>
 
 <script src="{% static 'js/login.js' %}"></script>
+<script>
+
+const phoneInput = document.getElementById('phone_input');
+
+phoneInput.addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    // 1. Agar foydalanuvchi hamma narsani o'chirib tashlasa ham +998 qaytib keladi
+    if (!value.startsWith('+998')) {
+        e.target.value = '+998';
+        return;
+    }
+
+    // 2. Faqat raqamlarni qoldirish (lekin birinchi + belgisini saqlab qolish)
+    // Bu qism harflarni o'chiradi
+    let numbersOnly = value.substring(1).replace(/\D/g, '');
+    e.target.value = '+' + numbersOnly;
+
+    // 3. Maksimal uzunlikni nazorat qilish (Rasmda ko'ringan xatoni oldini oladi)
+    if (e.target.value.length > 13) {
+        e.target.value = e.target.value.slice(0, 13);
+    }
+});
+
+// 4. Kursorni o'rtaga o'tkazishga yo'l qo'ymaslik
+phoneInput.addEventListener('keydown', function(e) {
+    if (e.target.selectionStart < 4 && (e.key === 'Backspace' || e.key === 'Delete')) {
+        e.preventDefault(); // +998 ni o'chirishni taqiqlash
+    }
+});
+</script>
 </body>
 </html>

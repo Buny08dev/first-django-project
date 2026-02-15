@@ -29,8 +29,13 @@
         </form>
     </div>
 </main>
-    
+    {% if user.is_authenticated %}
+        <h2>Xush kelibsiz, {{ user.username }}!</h2>
+    {% endif %}
 
+    {{ user }}
+
+    
     <h1>{{title|title}}</h1>
     <h1>{{ func.test.url }}</h1>
 

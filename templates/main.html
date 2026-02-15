@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/main.css' %}">
 <style>
-    .alert-error {
+.alert-error {
     background-color: #fdecea;
     color: #b71c1c;
     padding: 10px 14px;
@@ -19,16 +19,27 @@
 </style>
 </head>
 <body>
+    {% include 'message.html' %}
 <aside>
     <div class="logo">
-        <span>&lt;/&gt;</span> Bunyod
+        <span>&lt;/&gt;</span> 
+        <a href="{% url 'profile' %}" class="profile-link">
+            {{ user.username }}
+        </a>
     </div>
     <nav>
         <ul>
             <li>{% block url_1 %}{% endblock %}</li>
             <li>{% block url_2 %}{% endblock %}</li>
-            <li><a href="{% url 'create' %}">⚙️ add </a></li>
+            <li>{% block url_3 %}{% endblock %}</li>
+            {% if not user.is_authenticated %}
             <li><a href="{% url 'login' %}">⛩️ login </a></li>
+            {% elif user.is_superuser %}
+            <li><a href="{% url 'create' %}">⚙️ add </a></li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">↩️ sign out </a></li>
+            {% endif %}
         </ul>
     </nav>
 </aside>
@@ -36,6 +47,17 @@
     {% block content_1 %}{% endblock %}
     {% include 'create_include.html' with object=agree form=form %}
 </main>
+<script>
+setTimeout(function() {
+    let messages = document.querySelectorAll('.message-item');
+    messages.forEach(function(msg) {
+        msg.classList.add('fade-out');
+        setTimeout(function() {
+            msg.remove();
+        }, 500);
+    });
+}, 5000); // 5 soniya
+</script>
 </body>
 </html>
 

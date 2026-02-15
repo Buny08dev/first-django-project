@@ -25,10 +25,8 @@ class SearchForm(forms.Form):
     )
     def clean_search(self):
         data = self.cleaned_data['search']
-        
         if not data:
             return data
-        if len(data.strip())<=2:
+        if len(data.strip())<=1:
             raise forms.ValidationError("To`g`ri kirit!")
-
         return data
