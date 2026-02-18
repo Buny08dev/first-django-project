@@ -14,6 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 # pip install django-phonenumber-field
+import time
 
 
 # Create your views here.
@@ -44,20 +45,28 @@ class Loginview(AnonymousRequiredMixin,FormView):
     template_name='login.html'
 
     def form_valid(self,form:LoginForm):
-        if self.request.POST.get('login')=='login':
-            username=form.cleaned_data.get('username')
-            password=form.cleaned_data.get('password')
-            user=authenticate(username=username, password=password)
-            # print(user,'*'*100)
-            if user is not None:
-                login(self.request,user)
-                messages.success(self.request,f'Xush kelibsiz {username}')
-                return redirect('news')
-            else:
-                form.add_error(None, "Ism yoki parol xato kiritildi!")
-                return self.form_invalid(form)
+        # start_total = time.time()
+        username=form.cleaned_data.get('username')
+        password=form.cleaned_data.get('password')
+        
+        # start_auth = time.time()
+        user = authenticate(self.request, username=username, password=password)
+        # print("AUTH TIME:", time.time() - start_auth)
+    
+        # print(user,'*'*100)
+        if user is not None:
+            # start_login = time.time()
+            login(self.request,user)
+            # print("LOGIN TIME:", time.time() - start_login)
+            # print("BEFORE REDIRECT:", time.time() - start_total)
+            # print("TOTAL TIME:", time.time() - start_total)
+            messages.success(self.request,f'Xush kelibsiz {username}')
+            return redirect('news')
         else:
-            return redirect('reg')
+            form.add_error(None, "Ism yoki parol xato kiritildi!")
+            # print("TOTAL TIME:", time.time() - start_total)
+            return self.form_invalid(form)
+        
 
 class LogoutView(LoginRequiredMixin,View):
     def get(self,request):
