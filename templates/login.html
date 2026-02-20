@@ -21,7 +21,7 @@
          
         <h2>Tizimga kirish</h2>
         <p class="auth-subtitle">Yoki <a href="{% url 'reg' %}" >ro'yxatdan o'ting</a></p>
-        <form method="post" action="{% url 'login' %}">
+        <!-- <form method="post" action="{% url 'login' %}"> -->
             {% csrf_token %}
             <!-- <div class="auth-form-group">
                 <label>Foydalanuvchi nomi yoki Email</label>
@@ -40,8 +40,9 @@
             </div>
             <button type="submit" value="login" name="login" class="auth-btn">Kirish</button>
         </form> -->
-        <form method="post" action="{% url 'login' %}" novalidate>
+        <form method="post" action="{% url 'login' %}" >
             {% csrf_token %}
+            
             {% for field in form %}
                 <div class="auth-form-group">
                     <label>{{ field.label }}</label>
@@ -75,7 +76,7 @@
                 </label>
                 <a href="#" class="forgot-pw" style="color: #ff4b4b; text-decoration: none;">Parolni unutdingizmi?</a>
             </div>
-            {% endif %}         
+            {% endif %}
             <button type="submit" value="login" name="login" class="auth-btn">Kirish</button>
         </form>
         <br>

@@ -15,7 +15,7 @@ class LoginForm(AuthenticationForm):
         widget=forms.TextInput(attrs={
             'class': "auth-form-group", # CSS klasslar bo'lsa shu yerga qo'shing
             'placeholder': 'Foydalanuvchi nomi',
-            'required': False ,
+            # 'required': False ,
         }),
         error_messages={"required":"Majburiy bolim"}
     )
@@ -25,7 +25,7 @@ class LoginForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={
             'class': 'auth-form-group',
             'placeholder': 'Parol',
-            'required': False ,
+            # 'required': False ,
         }),
         error_messages={"required":"Majburiy bolim"}
     )

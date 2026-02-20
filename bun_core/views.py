@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 from rest_framework import viewsets
 # bunbase
 from bun_core.forms import AddProduct,SearchForm
-from bun_core.models import bunbase,Categories,Products
+from bun_core.models import Categories,Products
 from bun_core.serializers import ProductsApiForm
 from bun_core.func import search_func
 
@@ -38,6 +38,7 @@ from bun_core.func import search_func
 class ProductsViewSet(viewsets.ModelViewSet):
     queryset=Products.objects.all()
     serializer_class=ProductsApiForm
+
 # Create your views here.
 class MainView(View):
     def get(self,request):
@@ -52,12 +53,11 @@ class NewsView(ListView):
     def get_queryset(self,*args,**kwargs):
         queryset = super().get_queryset(*args,**kwargs)
 
-        # print("\n",self.request.GET,"\n")
-
+        # print("\n",queryset,"\nqueryset:",queryset.filter(name="IPhone 13"))
         form = SearchForm(self.request.GET)
         if form.is_valid():
             search = form.cleaned_data.get('search')
-            if len(search.strip())>2 and len(search) > 2:
+            if len(search.strip())>2:
                 queryset=search_func(queryset,search)
 
         slug=self.request.GET.get("cat_slug")

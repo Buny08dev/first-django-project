@@ -43,9 +43,14 @@ class Registerview(AnonymousRequiredMixin,FormView):
 class Loginview(AnonymousRequiredMixin,FormView):
     form_class=LoginForm
     template_name='login.html'
+    
+    # def dispatch(self, request, *args, **kwargs):
+    #     # print(time.time())
+    #     return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self,form:LoginForm):
-        # start_total = time.time()
+        
+        # print("form ishladi!",time.time())
         username=form.cleaned_data.get('username')
         password=form.cleaned_data.get('password')
         

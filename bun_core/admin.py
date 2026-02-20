@@ -23,6 +23,10 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields={"slug":('name',)}
     list_filter = ("created_time", "price")
     search_fields = ("name", "slug")
-    list_per_page = 8
+    list_per_page = 10
     readonly_fields = ("created_time", "updt_time")
     # date_hierarchy = "created_time"
+    
+    # def save_model(self, request, obj, form, change):
+    #     print(request,obj.slug,change)
+    #     return super().save_model(request, obj, form, change)

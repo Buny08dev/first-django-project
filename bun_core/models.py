@@ -14,7 +14,7 @@ class Categories(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
     
     class Meta:
@@ -49,7 +49,7 @@ class Products(models.Model):
                 slug = f"{base_slug}-{count}"
                 count += 1
             self.slug = slug
-        super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
     class Meta:
         db_table="Product"
