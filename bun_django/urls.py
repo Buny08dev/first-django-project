@@ -45,6 +45,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("",include("bun_core.urls")),
     path("users/",include('bun_users.urls')),
+    path("cart/",include('carts.urls')),
     path('admin/', admin.site.urls),
     
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),

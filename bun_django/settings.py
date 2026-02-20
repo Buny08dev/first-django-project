@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     
     "bun_core.apps.BunCoreConfig",
     "bun_users.apps.BunUsersConfig",
+    "carts",
     'rest_framework',
     'django.contrib.postgres',
     'drf_yasg',
