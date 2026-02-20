@@ -1,12 +1,12 @@
 from django.contrib import admin
-from bun_core.models import bunbase,Categories,Products
+from bun_core.models import bunbase,Categories,Products,Sale
 
 
 
 # Register your models here.
 
 
-# admin.site.register(bunbase)
+admin.site.register(Sale)
 
 @admin.register(Categories)
 class CategoryAdmin(admin.ModelAdmin):

@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 {% load static %}
 
-{% block title %} {{ products.name }} {% endblock %}
+{% block title %} {{ product.name }} {% endblock %}
 
 {% block content_1 %}
 <div class="product-detail">
@@ -10,32 +10,69 @@
         {% if product.image %}
             <img src="{{ product.image.url }}" alt="{{ product.name }}">
         {% else %}
-            <img src="{% static 'image/beauty' %}" alt="No Image">
+            <img src="{% static 'image/default.jpg' %}" alt="No Image">
         {% endif %}
     </div>
 
     <div class="detail-content">
-        <h1>{{ product.name }}</h1>
+        <h1 class="product-main-title">{{ product.name }}</h1>
+        <p class="detail-description">{{ product.description }}</p>
 
-        <p class="detail-description">
-            {{ product.description }}
-        </p>
+        <div class="product-purchase-card">
+            <div class="price-section">
+                {% if product.sales %}
+                <span class="old-price">{{ product.price }} $</span>
+                <div class="current-price-row">
+                    <h2 class="main-price">{{ product.change_price }} $</h2>
+                    <span class="discount-badge">{{ product.sales.percent }}%</span>
+                </div>
+                {% else %}
+                <div class="current-price-row">
+                    <h2 class="main-price">{{ product.price }} $</h2>
+                </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class="quantity-selector">
+                <!-- <button class="qty-btn" onclick="decrementQty()">-</button>     -->
+                <input type="number" id="product-qty" value="1" min="1" max="{{ product.quantity }}" class="qty-input">
+                <!-- <button class="qty-btn" onclick="incrementQty()">+</button> -->
+            </div>
+            <br>
+            <div class="purchase-actions">
+                <button class="buy-now-btn">Bir klikda sotib olish</button>
+                <button class="add-to-cart-btn">
+                    <i class="cart-icon">🛒</i> Savatchaga qo'shish
+                </button>
+            </div>
 
-        <h2 class="detail-price">
-            {{ product.price }} $
-        </h2>
+            <div class="delivery-info">
+                <p>✅ Omborxonada: {{ product.quantity }} dona bor</p>
+                <p>🚚 Yetkazib berish: 24 soat ichida</p>
+            </div>
 
-        <p class="detail-qty">
-            Quantity: {{ product.quantity }}
-        </p>
-
-        <div class="detail-actions">
-            <a href="{% url 'news' %}" class="btn update">⬅ Back</a>
+            <div class="detail-actions">
+                <a href="{% url 'news' %}" class="back-link">⬅ Orqaga qaytish</a>
+            </div>
         </div>
     </div>
 
 </div>
+
+<script>
+    function incrementQty() {
+        let input = document.getElementById('product-qty');
+        input.value = parseInt(input.value) + 1;
+    }
+    function decrementQty() {
+        let input = document.getElementById('product-qty');
+        if (parseInt(input.value) > 1) {
+            input.value = parseInt(input.value) - 1;
+        }
+    }
+</script>
 {% endblock %}
 
 {% block url_1 %} <a href="{% url 'home' %}">🏠 Asosiy</a> {% endblock %}
 {% block url_2 %} <a href="{% url 'about' %}">ℹ About</a> {% endblock %}
+{% block url_3 %} <a href="{% url 'news' %}">ℹ News</a> {% endblock %}

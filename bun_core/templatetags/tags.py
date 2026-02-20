@@ -27,14 +27,14 @@ def workk():
 
 @register.simple_tag(takes_context=True)
 def change_page_filter(context,**kwargs):
-
+    # print(context)
     # print(context['request'].GET)
 
     query=context['request'].GET.dict()
     
-    # print("\n",query,"\n",kwargs)
     
     query.update(kwargs)
     
+    # print("\n",query,"\n",kwargs)
     return urlencode(query)
 

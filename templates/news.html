@@ -60,7 +60,7 @@
             <h2 class="card-title">{{ n.name }}  </h2>
             <p class="card-text">{{ n.description|truncatechars:10 }}</p>
             {% endif %}
-            <h2 class="card-price">{{ n.price }} $</h2> 
+            <h2 class="card-price">{{ n.change_price }} $</h2> 
             <div class="card-meta">Quantity: {{ n.quantity }}</div>
             <div class="actions">
               <a class="btn update" href="{% url 'product_slug' n.category.slug n.slug %}">Info</a>
@@ -116,3 +116,4 @@
 
 {% block url_1 %} <a href="{% url 'home' %}">🏠 Asosiy</a> {% endblock %}
 {% block url_2 %} <a href="{% url 'about' %}">ℹ About</a> {% endblock %}
+{% block url_3 %} <a href="{% url 'cart' %}">🗑️ Savatcha</a> {% endblock %}

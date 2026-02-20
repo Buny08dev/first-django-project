@@ -146,28 +146,29 @@ main {
 /*  */
 .product-detail {
     display: flex;
-    gap: 40px;
+    justify-content: space-between; /* Rasm va matnni ikki chekkaga suradi */
+    align-items: flex-start;
+    gap: 50px;
     background: #1c1b1b;
-    padding: 30px;
+    padding: 40px;
     border-radius: 12px;
 }
-
 .detail-image {
-    width: 40%;
+    width: 45%;
 }
 .detail-image img {
     width: 100%;
     border-radius: 12px;
 }
-
+/* O'ng tomon: Butun matnli qism */
 .detail-content {
-    width: 60%;
-    color: #e5e7eb;
+    width: 50%;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
+    /* Agar savatchani o'zini yanada o'ngga surmoqchi bo'lsangiz: */
+    align-items: flex-end;
 }
-
 .detail-price {
     color: #3b82f6;
     font-size: 26px;
@@ -467,4 +468,120 @@ main {
     opacity: 0;
     transform: translateX(100%);
     transition: 0.5s ease;
+}
+/* Savatcha bloki uchun maxsus dizayn */
+.product-purchase-card {
+    width: 100%;
+    max-width: 450px; /* Kartani juda yoyilib ketmasligi uchun */
+    background: #1e1e1e;
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid #333;
+}
+
+/* Narxlar bo'limi */
+.old-price {
+    text-decoration: line-through;
+    color: #666;
+    font-size: 16px;
+}
+
+.current-price-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.main-price {
+    color: #3b82f6; /* Sizning ko'k rangingiz */
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.discount-badge {
+    background: #ff4b4b; /* Sizning qizil rangingiz */
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Miqdorni tanlash (Quantity) */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    background: #2f2f2f;
+    border-radius: 8px;
+    width: fit-content;
+    border: 1px solid #444;
+}
+
+.qty-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.qty-input {
+    background: transparent;
+    border: none;
+    color: white;
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Tugmalar */
+.purchase-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.buy-now-btn {
+    background: #e5e7eb;
+    color: #1e1e1e;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buy-now-btn:hover {
+    background: #ffffff;
+}
+
+.add-to-cart-btn {
+    background: #6366f1; /* Siyohrang-ko'k */
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.add-to-cart-btn:hover {
+    background: #4f46e5;
+    transform: scale(1.02);
+}
+
+/* Yetkazib berish ma'lumoti */
+.delivery-info {
+    font-size: 13px;
+    color: #9ca3af;
+    line-height: 1.8;
+}
+.product-main-title, .detail-description {
+    width: 100%;
+    text-align: left;
 }
