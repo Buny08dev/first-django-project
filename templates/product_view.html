@@ -35,14 +35,14 @@
             <br>
             <div class="quantity-selector">
                 <!-- <button class="qty-btn" onclick="decrementQty()">-</button>     -->
-                <input type="number" id="product-qty" value="1" min="1" max="{{ product.quantity }}" class="qty-input">
+                <!-- <input type="number" id="product-qty" value="1" min="1" max="{{ product.quantity }}" class="qty-input"> -->
                 <!-- <button class="qty-btn" onclick="incrementQty()">+</button> -->
             </div>
             <br>
             <div class="purchase-actions">
                 <button class="buy-now-btn">Bir klikda sotib olish</button>
-                <button class="add-to-cart-btn">
-                    <i class="cart-icon">🛒</i> Savatchaga qo'shish
+                <button type="submit" class="add-to-cart-btn">
+                  <a class="cart-icon" href="{% url 'cart' product.slug %}">🛒 Savatchaga qo'shish</a>
                 </button>
             </div>
 

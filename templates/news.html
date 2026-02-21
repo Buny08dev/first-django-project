@@ -66,7 +66,8 @@
               <a class="btn update" href="{% url 'product_slug' n.category.slug n.slug %}">Info</a>
               
                 <a class="btn update" href="{% url 'update' n.slug %}">Update</a>
-                <form action="{% url 'delete' n.slug %}" method="post">{% csrf_token %}
+                <form action="{% url 'delete' n.slug %}" method="post">
+                    {% csrf_token %}
                     <input class="btn delete" type="submit" value="delete">
                 </form>
             </div>
@@ -116,4 +117,4 @@
 
 {% block url_1 %} <a href="{% url 'home' %}">🏠 Asosiy</a> {% endblock %}
 {% block url_2 %} <a href="{% url 'about' %}">ℹ About</a> {% endblock %}
-{% block url_3 %} <a href="{% url 'cart' %}">🗑️ Savatcha</a> {% endblock %}
+{% block url_3 %} <a href="{% url 'cart_view' %}">🗑️ Savatcha</a> {% endblock %}
