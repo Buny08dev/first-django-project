@@ -14,7 +14,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 # pip install django-phonenumber-field
-import time
+# import time
+
 
 
 # Create your views here.
