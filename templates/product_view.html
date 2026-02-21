@@ -41,9 +41,13 @@
             <br>
             <div class="purchase-actions">
                 <button class="buy-now-btn">Bir klikda sotib olish</button>
-                <button type="submit" class="add-to-cart-btn">
-                  <a class="cart-icon" href="{% url 'cart' product.slug %}">🛒 Savatchaga qo'shish</a>
-                </button>
+
+                <form method="post" action="{% url 'cart' product.slug %}">
+                    {% csrf_token %}
+                    <button type="submit" class="add-to-cart-btn">
+                        🛒 Savatchaga qo'shish
+                    </button>
+                </form>
             </div>
 
             <div class="delivery-info">

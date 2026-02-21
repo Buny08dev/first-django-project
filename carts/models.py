@@ -9,9 +9,8 @@ class CartQueryset(models.QuerySet):
         return sum(cart.purchase() for cart in self)
     
     def total_quantity(self):
-        print(self)
+        # print(self)
         if self:
-            # print(sum(i.quantity for i in self))
             return sum(i.quantity for i in self)
         return 0
 
@@ -26,6 +25,7 @@ class CartsModel(models.Model):
     objects=CartQueryset.as_manager()
 
     class Meta:
+        db_table="savat"
         verbose_name="savatcha"
         verbose_name_plural="savatchalar"
 

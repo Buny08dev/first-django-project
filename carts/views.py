@@ -1,12 +1,12 @@
 from django.shortcuts import render,redirect
-from django.views.generic import View,ListView
+from django.views.generic import View,ListView,DeleteView
 from bun_core.models import Products
 from carts.models import CartsModel
-
+from django.urls import reverse_lazy
 # Create your views here.
 
 class CartsAddView(View):
-    def get(self,request,slug):
+    def post(self,request,slug):
         # print(request.GET,slug)
         product=Products.objects.get(slug=slug)
         # print(product)
@@ -31,3 +31,12 @@ class CartSChangeView(ListView):
 
     # def get(self,request):
     #     return render(request,'carts.html')
+
+        
+class CartRemoveView(DeleteView):
+    template_name='carts.html'
+    model=CartsModel
+    context_object_name='carts'
+
+    def get_success_url(self):
+        return self.request.META.get('HTTP_REFERER', '/')

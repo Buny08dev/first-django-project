@@ -2,9 +2,10 @@
 
 {% block content_1 %}
 <!-- {{ carts }} -->
+<!-- {{ request.GET }} -->
 <div class="cart-wrapper">
     <div class="cart-card">
-        <h2 class="cart-title">🛒 Корзина</h2>
+        <h2 class="cart-title">🛒 Savatcha</h2>
         {% for cart in carts %}
         <div class="product-name">
             {{ cart.product.name }}
@@ -22,18 +23,27 @@
                 <strong>{{ cart.purchase }}$</strong>
             </div>
 
-            <button class="delete-btn">🗑</button>
+            <form method="post" action="{% url 'cart_remove' cart.id %}">
+                {% csrf_token %}
+                
+                <button class="delete-btn">🗑</button>
+            </form>
         </div>
         {% endfor %}
         <!-- Total -->
         <div class="cart-total">
-            <p>Итого {{ carts.total_quantity }} товар(а) на сумму</p>
-            <h3>{{ carts.total_price }}$</h3>
+            <p>Jami <{{ carts.total_quantity }}> ta mahsulot!</p>
+            <h3>Jami narxi - {{ carts.total_price }}$</h3>
         </div>
 
         <!-- Checkout -->
-        <button class="checkout-btn">Оформить заказ</button>
-
+        {% if carts.total_quantity %}
+            <button class="checkout-btn">Zakazni Qabul qilish</button>
+        {% else %}
+            <a href="{% url 'home' %}" class="checkout-btn">
+                🏠 Bosh sahifaga qaytish
+            </a>
+        {% endif %}
     </div>
 </div>
 
