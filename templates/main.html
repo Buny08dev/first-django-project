@@ -57,7 +57,70 @@ setTimeout(function() {
         }, 500);
     });
 }, 5000); // 5 soniya
+document.querySelectorAll(".qty-btn").forEach(btn => {
+
+    btn.addEventListener("click", function () {
+
+        let cartId = this.dataset.id
+        let action = this.classList.contains("plus-btn") ? "plus" : "minus"
+
+        fetch(`/cart/cart_view/${cartId}/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `action=${action}`
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            if (data.error) {
+                alert(data.message)
+                return
+            }
+
+            if (data.deleted) {
+                document.getElementById(`cart-${cartId}`).remove()
+                location.reload()
+                return
+            }
+
+            let qtyInput = document.getElementById(`qty-${cartId}`)
+            let plusBtn = document.getElementById(`plus-${cartId}`)
+            let minusBtn = document.getElementById(`minus-${cartId}`)
+            let totalPrice = document.getElementById(`total-${cartId}`)
+
+            qtyInput.value = data.quantity
+            totalPrice.innerText = data.total_price + "$"
+
+            minusBtn.disabled = data.quantity <= 1
+            plusBtn.disabled = data.quantity >= data.max
+
+        })
+
+    })
+
+})
+window.onload = function() {
+
+    document.querySelectorAll(".qty-input").forEach(input => {
+
+        let cartId = input.id.split("-")[1]
+
+        let qty = parseInt(input.value)
+
+        let minusBtn = document.getElementById(`minus-${cartId}`)
+
+        if (qty <= 1) {
+            minusBtn.disabled = true
+        }
+
+    })
+
+}
 </script>
+
 </body>
 </html>
 

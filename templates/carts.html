@@ -11,17 +11,28 @@
             {{ cart.product.name }}
         </div>
         <!-- Cart item -->
-        <div class="cart-item">
-            <div class="qty-control">
-                <button class="qty-btn">−</button>
-                <input type="text" value="{{ cart.quantity }}" class="qty-input">
-                <button class="qty-btn">+</button>
-            </div>
+        <div class="cart-item" id="cart-{{ cart.id }}">
+                <div class="qty-control">
 
-            <div class="cart-info">
-                <span>x{{ cart.product.change_price }}$=</span>
-                <strong>{{ cart.purchase }}$</strong>
-            </div>
+                    <button class="qty-btn minus-btn"
+                            data-id="{{ cart.id }}"
+                            id="minus-{{ cart.id }}">−</button>
+
+                    <input type="text"
+                        value="{{ cart.quantity }}"
+                        id="qty-{{ cart.id }}"
+                        class="qty-input">
+
+                    <button class="qty-btn plus-btn"
+                            data-id="{{ cart.id }}"
+                            id="plus-{{ cart.id }}">+</button>
+
+                </div>
+
+                <div class="cart-info">
+                    <span>x{{ cart.product.change_price }}$=</span>
+                    <strong id="total-{{ cart.id }}">{{ cart.purchase }}$</strong>
+                </div>
 
             <form method="post" action="{% url 'cart_remove' cart.id %}">
                 {% csrf_token %}
@@ -33,14 +44,14 @@
         <!-- Total -->
         <div class="cart-total">
             <p>Jami <{{ carts.total_quantity }}> ta mahsulot!</p>
-            <h3>Jami narxi - {{ carts.total_price }}$</h3>
+            <h3 id="grand-total">Jami narxi - {{ carts.total_price }}$</h3>
         </div>
 
         <!-- Checkout -->
         {% if carts.total_quantity %}
             <button class="checkout-btn">Zakazni Qabul qilish</button>
         {% else %}
-            <a href="{% url 'home' %}" class="checkout-btn">
+            <a href="{% url 'news' %}" class="checkout-btn">
                 🏠 Bosh sahifaga qaytish
             </a>
         {% endif %}
