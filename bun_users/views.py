@@ -8,6 +8,7 @@ from django.views.generic import TemplateView,FormView
 from django.views import View
 from django.urls import reverse_lazy
 from django.contrib import messages
+from carts.models import CartsModel
 # from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 # keshlar bilan ishlash
@@ -36,7 +37,10 @@ class Registerview(AnonymousRequiredMixin,FormView):
     def form_valid(self, form:RegisterForm):
         # print("*"*100,form.cleaned_data,)
         user=form.save()
+        session_key=self.request.session.session_key
         login(self.request,user)
+        if session_key:
+            CartsModel.objects.filter(session_key=session_key).update(user=user)
         messages.success(self.request,f'Xush kelibsiz {user.username}')
         return super().form_valid(form)
 
@@ -58,11 +62,14 @@ class Loginview(AnonymousRequiredMixin,FormView):
         # start_auth = time.time()
         user = authenticate(self.request, username=username, password=password)
         # print("AUTH TIME:", time.time() - start_auth)
-    
+        session_key=self.request.session.session_key
         # print(user,'*'*100)
         if user is not None:
             # start_login = time.time()
             login(self.request,user)
+
+            if session_key:
+                CartsModel.objects.filter(session_key=session_key).update(user=user)
             # print("LOGIN TIME:", time.time() - start_login)
             # print("BEFORE REDIRECT:", time.time() - start_total)
             # print("TOTAL TIME:", time.time() - start_total)

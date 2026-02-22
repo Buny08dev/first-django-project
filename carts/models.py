@@ -16,7 +16,7 @@ class CartQueryset(models.QuerySet):
 
 # Create your models here.
 class CartsModel(models.Model):
-    user=models.ForeignKey(to=UserMod,on_delete=models.CASCADE,related_name="carts",verbose_name='User')
+    user=models.ForeignKey(to=UserMod,on_delete=models.CASCADE,blank=True,null=True,related_name="carts",verbose_name='User')
     product=models.ForeignKey(to=Products,on_delete=models.CASCADE,related_name="products",verbose_name='Product')
     quantity=models.PositiveSmallIntegerField(default=0,verbose_name="Soni")
     session_key=models.CharField(max_length=32,null=True,blank=True)
@@ -30,7 +30,7 @@ class CartsModel(models.Model):
         verbose_name_plural="savatchalar"
 
     def __str__(self):
-        return f"Savatcha:{self.user.username} | Product:{self.product.name} | Soni:{self.quantity}"
+        return f"Savatcha:{self.user.username if self.user else "Anonimus"} | Product:{self.product.name} | Soni:{self.quantity}"
     
     def purchase(self):
         return round(self.product.change_price()*self.quantity,2)

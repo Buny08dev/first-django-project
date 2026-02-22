@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 
 class CartsAddView(View):
     def post(self,request,slug):
-        # print(request.GET,slug)
+        # print(request.META)
         product=Products.objects.get(slug=slug)
         # print(product)
         if request.user.is_authenticated:
@@ -22,16 +22,30 @@ class CartsAddView(View):
                     cart.save() 
             else:
                 CartsModel.objects.create(user=request.user,product=product,quantity=1)
+        else:
+            request.session.create()
+            carts=CartsModel.objects.filter(session_key=request.session.session_key,product=product)
+            if carts.exists():
+                cart= carts.first()
+                if cart:
+                    cart.quantity+=1
+                    cart.save() 
+            else:
+                CartsModel.objects.create(session_key=request.session.session_key,product=product,quantity=1)
         # return redirect(request.META['HTTP_REFERER'])
         return redirect('cart_view')
 
-class CartSChangeView(ListView):
+class CartView(ListView):
     template_name = 'carts.html'
     model = CartsModel
     context_object_name = 'carts'
 
     def get_queryset(self):
-        return CartsModel.objects.filter(user=self.request.user)
+        if self.request.user.is_authenticated:
+            return CartsModel.objects.filter(user=self.request.user)
+        else:
+            # print("session ishladi",CartsModel.objects.filter(session_key=self.request.session.session_key))
+            return CartsModel.objects.filter(session_key=self.request.session.session_key)
 
 class CartQuantityChangeView(View):
     def post(self, request, pk):
