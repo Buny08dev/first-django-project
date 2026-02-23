@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-
+from django.urls import reverse
 # Create your models here.
 
 # Categories
@@ -61,6 +61,9 @@ class Products(models.Model):
             self.slug = slug
         return super().save(*args, **kwargs)
     
+    def get_absolute_url(self):
+        return reverse('product_slug',kwargs={'category_slug':self.category.slug,'product_slug':self.slug})
+
     def change_price(self):
         if self.sales:
             return round(self.price-(self.price*self.sales.percent)/100,2)
@@ -70,6 +73,7 @@ class Products(models.Model):
         db_table="Product"
         verbose_name="product"
         verbose_name_plural="productlar"
+        ordering=("id",)
 
 
 

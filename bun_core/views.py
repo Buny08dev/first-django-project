@@ -94,6 +94,9 @@ class ProductView(DetailView):
     def get_queryset(self):
         return Products.objects.filter(category__slug=self.kwargs['category_slug'])
 
+    def get_success_url(self):
+        return self.request.META.get('HTTP_REFERER', '/')
+
 class AboutView(TemplateView):
     template_name="about.html"
 
@@ -119,7 +122,7 @@ class UpdateProductView(UpdateView):
         return context
 
 class DeleteProductView(DeleteView):
-    model=Products    
+    model=Products
     success_url=reverse_lazy('news')
 
 # TESTing
