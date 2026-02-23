@@ -69,6 +69,7 @@ class Loginview(AnonymousRequiredMixin,FormView):
             login(self.request,user)
 
             if session_key:
+                CartsModel.objects.filter(user=user,product__name__in=CartsModel.objects.filter(session_key=session_key).values_list('product__name')).delete()
                 CartsModel.objects.filter(session_key=session_key).update(user=user)
             # print("LOGIN TIME:", time.time() - start_login)
             # print("BEFORE REDIRECT:", time.time() - start_total)

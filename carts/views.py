@@ -23,7 +23,8 @@ class CartsAddView(View):
             else:
                 CartsModel.objects.create(user=request.user,product=product,quantity=1)
         else:
-            request.session.create()
+            if not request.session.session_key:
+                request.session.create()
             carts=CartsModel.objects.filter(session_key=request.session.session_key,product=product)
             if carts.exists():
                 cart= carts.first()
@@ -44,8 +45,11 @@ class CartView(ListView):
         if self.request.user.is_authenticated:
             return CartsModel.objects.filter(user=self.request.user)
         else:
-            # print("session ishladi",CartsModel.objects.filter(session_key=self.request.session.session_key))
-            return CartsModel.objects.filter(session_key=self.request.session.session_key)
+            if self.request.session.session_key:
+                # print("session ishladi",CartsModel.objects.filter(session_key=self.request.session.session_key))
+                return CartsModel.objects.filter(session_key=self.request.session.session_key)
+            else:
+                return CartsModel.objects.none()
 
 class CartQuantityChangeView(View):
     def post(self, request, pk):
