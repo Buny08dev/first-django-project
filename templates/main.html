@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/main.css' %}">
 <style>
 .alert-error {
     background-color: #fdecea;
@@ -119,6 +119,21 @@ window.onload = function() {
     })
 
 }
+// Karta raqamini formatlash
+document.getElementById('card_number').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/[^\d]/g, '');
+    let formattedValue = value.replace(/(.{4})/g, '$1 ').trim();
+    e.target.value = formattedValue;
+});
+
+// Muddatni formatlash (OO/YY)
+document.getElementById('card_expiry').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/[^\d]/g, '');
+    if (value.length > 2) {
+        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+    }
+    e.target.value = value;
+});
 </script>
 
 </body>

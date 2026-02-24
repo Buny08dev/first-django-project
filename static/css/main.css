@@ -700,3 +700,124 @@ main {
     background: #111;
     transform: scale(1.02);
 }
+/* Oq karta */
+.order-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 400px; /* Mobil qurilmalarda moslashuvchan bo'lishi uchun */
+    margin: auto;
+}
+.order-container {
+    flex: 1;                /* Navbar-dan qolgan hamma joyni egallaydi */
+    display: flex;
+    justify-content: center; /* Gorizontal markaz */
+    align-items: center;     /* Vertikal markaz */
+    padding: 20px;
+}
+.order-card h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 22px;
+    text-align: center;
+}
+
+.order-summary {
+    text-align: center;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+}
+
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: #000;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Karta inputlari stili */
+.card-input-container {
+    background: #f4f4f4;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    margin-top: 5px;
+}
+
+#card_number {
+    letter-spacing: 2px;
+    font-size: 18px;
+    text-align: center;
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.payment-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #333;
+}
+
+@media (max-width: 480px) {
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .order-card {
+        margin: 20px;
+    }
+}

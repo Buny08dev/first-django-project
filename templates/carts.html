@@ -49,7 +49,7 @@
 
         <!-- Checkout -->
         {% if carts.total_quantity %}
-            <button class="checkout-btn">Zakazni Qabul qilish</button>
+            <a href="{% url 'order' %}" class="checkout-btn">Zakazni Qabul qilish</a>
         {% else %}
             <a href="{% url 'news' %}" class="checkout-btn">
                 🏠 Bosh sahifaga qaytish

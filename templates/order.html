@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+
+{% block content_1 %}
+<div class="order-container">
+    <div class="order-card">
+        <h2>🚚 Buyurtmani rasmiylashtirish</h2>
+        <p class="order-summary">Jami summa: <strong>300.00$</strong></p>
+        
+        <form action="" method="POST">
+            {% csrf_token %} <div class="form-row">
+                <div class="form-group">
+                    <label for="first_name">Ism</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Ali" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Familiya</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="Valiyev" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Telefon raqami</label>
+                <input type="tel" id="phone" name="phone" placeholder="+998 90 123 45 67" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Yetkazib berish manzili</label>
+                <select id="address" name="address" required>
+                    <option value="" disabled selected>Manzilni tanlang...</option>
+                    <option value="toshkent_sh">Toshkent shahri</option>
+                    <option value="samarqand">Samarqand</option>
+                    <option value="fargona">Farg'ona</option>
+                    </select>
+            </div>
+
+            <div class="payment-section">
+                <label>Karta ma'lumotlari</label>
+                <div class="card-input-container">
+                    <div class="form-group">
+                        <input type="text" name="card_number" id="card_number" 
+                               placeholder="0000 0000 0000 0000" maxlength="19" 
+                               inputmode="numeric" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="card_expiry" id="card_expiry" 
+                                   placeholder="OO/YY" maxlength="5" 
+                                   inputmode="numeric" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="card_cvv" id="card_cvv" 
+                                   placeholder="CVV" maxlength="3" 
+                                   inputmode="numeric" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Buyurtmani tasdiqlash</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block url_1 %} <a href="{% url 'home' %}">🏠 Asosiy</a> {% endblock %}
+{% block url_2 %} <a href="{% url 'news' %}">ℹ news</a> {% endblock %}
+{% block url_3 %} <a href="{% url 'cart_view' %}">🗑️Savatcha</a> {% endblock %}

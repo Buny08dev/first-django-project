@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'drf_yasg',
     'debug_toolbar',
+    'orders',
 ]
 
 MIDDLEWARE = [

@@ -49,7 +49,7 @@ class NewsView(ListView):
     model=Products
     context_object_name="products_"
     template_name="news.html"
-    paginate_by=3
+    paginate_by=4
     
     def get_queryset(self,*args,**kwargs):
         queryset = super().get_queryset(*args,**kwargs)

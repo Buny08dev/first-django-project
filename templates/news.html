@@ -65,11 +65,11 @@
             <div class="actions">
               <a class="btn update" href="{% url 'product_slug' n.category.slug n.slug %}">Info</a>
               
-                <a class="btn update" href="{% url 'update' n.slug %}">Update</a>
+                <!-- <a class="btn update" href="{% url 'update' n.slug %}">Update</a>
                 <form action="{% url 'delete' n.slug %}" method="post">
                     {% csrf_token %}
                     <input class="btn delete" type="submit" value="delete">
-                </form>
+                </form> -->
             </div>
         </div>
     </div>
