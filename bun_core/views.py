@@ -73,7 +73,7 @@ class NewsView(ListView):
         if pr_1:
             queryset=queryset.order_by(pr_1)
 
-        return queryset
+        return queryset.select_related('category')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,7 +92,8 @@ class ProductView(DetailView):
     slug_url_kwarg="product_slug"
 
     def get_queryset(self):
-        return Products.objects.filter(category__slug=self.kwargs['category_slug'])
+        return Products.objects.select_related('category').filter(category__slug=self.kwargs['category_slug'])
+
 
     def get_success_url(self):
         return self.request.META.get('HTTP_REFERER', '/')

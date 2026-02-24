@@ -17,7 +17,7 @@ class CartQueryset(models.QuerySet):
 # Create your models here.
 class CartsModel(models.Model):
     user=models.ForeignKey(to=UserMod,on_delete=models.CASCADE,blank=True,null=True,related_name="carts",verbose_name='User')
-    product=models.ForeignKey(to=Products,on_delete=models.CASCADE,related_name="products",verbose_name='Product')
+    product=models.ForeignKey(to=Products,on_delete=models.CASCADE,related_name="carts",verbose_name='Product')
     quantity=models.PositiveSmallIntegerField(default=0,verbose_name="Soni")
     session_key=models.CharField(max_length=32,null=True,blank=True)
     created_time=models.DateTimeField(auto_now_add=True,verbose_name="Qoshilgan vaqti")

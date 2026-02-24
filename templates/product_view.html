@@ -33,17 +33,17 @@
                 {% endif %}
             </div>
             <br>
+            <form method="post" action="{% url 'cart' product.slug %}">
+            {% csrf_token %}    
+            
             <div class="quantity-selector">
                 <!-- <button class="qty-btn" onclick="decrementQty()">-</button>     -->
-                <!-- <input type="number" id="product-qty" value="1" min="1" max="{{ product.quantity }}" class="qty-input"> -->
+                <input type="number" name="quantity" id="product-qty" value="{% if product.carts.first.quantity  %}{{ product.carts.first.quantity }}{% else %}1{% endif %}" min="1" max="{{ product.quantity }}" class="qty-input">
                 <!-- <button class="qty-btn" onclick="incrementQty()">+</button> -->
             </div>
             <br>
             <div class="purchase-actions">
-                <button class="buy-now-btn">Bir klikda sotib olish</button>
-
-                <form method="post" action="{% url 'cart' product.slug %}">
-                    {% csrf_token %}
+                <button class="buy-now-btn">Bir klikda sotib olish </button>
                     <button type="submit" class="add-to-cart-btn">
                         🛒 Savatchaga qo'shish
                     </button>

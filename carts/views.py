@@ -4,24 +4,23 @@ from bun_core.models import Products
 from carts.models import CartsModel
 from django.http import JsonResponse, Http404
 from django.urls import reverse_lazy
+from django.db.models import F
 # Create your views here.
 
 class CartsAddView(View):
     def post(self,request,slug):
-        # print(request.META)
+        # print(request.POST)
+        quantity=int(request.POST.get('quantity')[0])
         product=Products.objects.get(slug=slug)
-        # print(product)
         if request.user.is_authenticated:
             carts=CartsModel.objects.filter(user=request.user,product=product)
             if carts.exists():
-                # print(carts)
                 cart= carts.first()
-                # print(cart)
                 if cart:
-                    cart.quantity+=1
+                    cart.quantity=quantity
                     cart.save() 
             else:
-                CartsModel.objects.create(user=request.user,product=product,quantity=1)
+                CartsModel.objects.create(user=request.user,product=product,quantity=quantity)
         else:
             if not request.session.session_key:
                 request.session.create()
@@ -29,10 +28,10 @@ class CartsAddView(View):
             if carts.exists():
                 cart= carts.first()
                 if cart:
-                    cart.quantity+=1
+                    cart.quantity=quantity
                     cart.save() 
             else:
-                CartsModel.objects.create(session_key=request.session.session_key,product=product,quantity=1)
+                CartsModel.objects.create(session_key=request.session.session_key,product=product,quantity=quantity)
         # return redirect(request.META['HTTP_REFERER'])
         return redirect('cart_view')
 
@@ -46,7 +45,6 @@ class CartView(ListView):
             return CartsModel.objects.filter(user=self.request.user)
         else:
             if self.request.session.session_key:
-                # print("session ishladi",CartsModel.objects.filter(session_key=self.request.session.session_key))
                 return CartsModel.objects.filter(session_key=self.request.session.session_key)
             else:
                 return CartsModel.objects.none()
@@ -59,7 +57,7 @@ class CartQuantityChangeView(View):
 
         if action == "plus":
             if cart.quantity < product.quantity:
-                cart.quantity += 1
+                cart.quantity =F('quantity') + 1
                 cart.save()
             else:
                 return JsonResponse({
@@ -73,7 +71,7 @@ class CartQuantityChangeView(View):
 
         elif action == "minus":
             if cart.quantity > 1:
-                cart.quantity -= 1
+                cart.quantity =F('quantity') - 1
                 cart.save()
             else:
                 cart.delete()
