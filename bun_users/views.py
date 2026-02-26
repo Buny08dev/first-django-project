@@ -9,6 +9,7 @@ from django.views import View
 from django.urls import reverse_lazy
 from django.contrib import messages
 from carts.models import CartsModel
+from orders.models import OrderItem,Order
 # from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 # keshlar bilan ishlash
@@ -90,3 +91,21 @@ class LogoutView(LoginRequiredMixin,View):
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = "profile.html"
+    def post(self,request):
+        user = request.user
+
+        user.username = request.POST.get('username')
+        user.email = request.POST.get('email')
+        user.phone=request.POST.get('phone')
+        
+        if request.FILES.get('image'):
+            user.image = request.FILES.get('image')
+            
+        user.save()
+        messages.success(request, "Profil muvaffaqiyatli yangilandi!")
+        return redirect('profile')
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['orders'] = Order.objects.filter(user=self.request.user).prefetch_related('orderitem__product').order_by('-created_time')
+        return context

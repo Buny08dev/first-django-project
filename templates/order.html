@@ -10,17 +10,13 @@
             {% csrf_token %} <div class="form-row">
                 <div class="form-group">
                     <label for="first_name">Ism</label>
-                    <input type="text" id="first_name" name="first_name" placeholder="Ali" required>
-                </div>
-                <div class="form-group">
-                    <label for="last_name">Familiya</label>
-                    <input type="text" id="last_name" name="last_name" placeholder="Valiyev" required>
+                    <input type="text" id="first_name" name="first_name" value="{{user.username}}" placeholder="Ali" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="phone">Telefon raqami</label>
-                <input type="tel" id="phone" name="phone" placeholder="+998 90 123 45 67" required>
+                <input type="tel" id="phone" name="phone" value="{{user.phone}}" placeholder="+998 90 123 45 67" required>
             </div>
 
             <div class="form-group">

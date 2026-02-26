@@ -1,55 +1,101 @@
 {% extends 'main.html' %}
 
-{% block title %} Profile {% endblock %}
+{% block title %} Profil: {{ user.username }} {% endblock %}
 
 {% block content_1 %}
-
-<div class="profile-container">
-
-    <div class="profile-card">
-
-        <div class="profile-avatar">
-            {% if user.avatar %}
-                <img src="{{ user.avatar.url }}">
+<div class="profile-page-container">
+    
+    <div class="profile-card-dark">
+        <div class="profile-avatar-big">
+            {% if user.image %}
+                <img src="{{ user.image.url }}" alt="Avatar">
             {% else %}
-                <div class="avatar-placeholder">
-                    {{ user.username|first|upper }}
-                </div>
+                <div class="avatar-placeholder-big">{{ user.username|first|upper }}</div>
             {% endif %}
+            <button class="edit-avatar-badge" onclick="toggleModal()">✎</button>
         </div>
-
-        <h2>{{ user.username }}</h2>
-        <p>{{ user.email }}</p>
-
-        <div class="profile-info">
-            <div>
-                <span>ID</span>
-                <strong>{{ user.id }}</strong>
-            </div>
-
-            <div>
-                <span>Date joined</span>
-                <strong>{{ user.date_joined|date:"Y-m-d" }}</strong>
-            </div>
-
-            <div>
-                <span>Status</span>
-                <strong>
-                    {% if user.is_superuser %}
-                        Admin
-                    {% else %}
-                        User
-                    {% endif %}
+        <h2 class="profile-name">{{ user.username }}</h2>
+        <p class="profile-email">{{ user.email }}</p>
+        
+        <div class="profile-mini-stats">
+            <div class="stat-box"><span>ID</span><strong>{{ user.id }}</strong></div>
+            <div class="stat-box"><span>Sana</span><strong>{{ user.date_joined|date:"Y-m-d" }}</strong></div>
+            <div class="stat-box"><span>Status</span>
+                <strong class="status-tag {% if user.is_superuser %}admin{% endif %}">
+                    {% if user.is_superuser %}Admin{% else %}User{% endif %}
                 </strong>
             </div>
         </div>
-
-        <a href="#" class="edit-btn">Edit profile</a>
-
+        <button class="edit-profile-btn" onclick="toggleModal()">Profilni tahrirlash</button>
     </div>
 
+    <div class="orders-history-container">
+        <h3 class="section-title">📦 Mening buyurtmalarim</h3>
+        {% if orders %}
+            <div class="orders-scroll-area">
+                {% for order in orders %}
+                <div class="order-card-item">
+                    <div class="order-header">
+                        <span class="order-id">#{{ order.id }} Buyurtma</span>
+                        <span class="order-date">{{ order.created_time|date:"d M, Y" }}</span>
+                    </div>
+                    <div class="order-body">
+                        <div class="order-items-list">
+                                <p>{{ order.orderitem.first.product.name }} — <span class="qty-span">{{ order.orderitem.first.quantity }} ta</span></p>
+                        </div>
+                        <div class="order-summary">
+                            <span class="order-total">{{ order.orderitem.first.product_price }}$</span>
+                            <span class="order-status {% if order.is_paid %}paid{% else %}pending{% endif %}">
+                                {% if order.is_paid %}To'langan{% else %}Kutilmoqda{% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-orders">
+                <p>Hali buyurtmalar mavjud emas.</p>
+                <a href="{% url 'home' %}" class="shop-now-link">Xarid qilish ➔</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div id="editModal" class="modal-blur">
+        <div class="modal-form-card">
+            <div class="modal-close-head">
+                <h3>Profilni yangilash</h3>
+                <button onclick="toggleModal()">&times;</button>
+            </div>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'profile' %}">
+                {% csrf_token %}
+                <div class="field-group">
+                    <label>Username</label>
+                    <input type="text" name="username" value="{{ user.username }}">
+                </div>
+                <div class="field-group">
+                    <label>Email</label>
+                    <input type="email" name="email" value="{{ user.email }}">
+                </div>
+                <div class="field-group">
+                    <label>Phone</label>
+                    <input type="tel" name="phone" value="{{ user.phone }}">
+                </div>
+                <div class="field-group">
+                    <label>Avatar tanlash</label>
+                    <input type="file" name="image">
+                </div>
+                <button type="submit" class="save-changes-btn">Saqlash</button>
+            </form>
+        </div>
+    </div>
 </div>
 
+<script>
+    function toggleModal() {
+        document.getElementById('editModal').classList.toggle('active');
+    }
+</script>
 {% endblock %}
 
 {% block url_1 %} <a href="{% url 'home' %}">🏠 Asosiy</a> {% endblock %}

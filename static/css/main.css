@@ -311,88 +311,6 @@ main {
     display: flex;
     align-items: center;
 }
-
-.profile-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-}
-
-.profile-card {
-    background: #1e1e1e;
-    padding: 30px;
-    border-radius: 16px;
-    width: 350px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-.profile-avatar img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.avatar-placeholder {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: #3b82f6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    color: white;
-    margin: auto;
-}
-
-.profile-card h2 {
-    margin-top: 15px;
-    color: white;
-}
-
-.profile-card p {
-    color: #aaa;
-    margin-bottom: 20px;
-}
-
-.profile-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.profile-info div {
-    background: #2a2a2a;
-    padding: 10px;
-    border-radius: 10px;
-    width: 30%;
-}
-
-.profile-info span {
-    display: block;
-    font-size: 12px;
-    color: #888;
-}
-
-.profile-info strong {
-    color: white;
-}
-
-.edit-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #2563eb;
-    color: white;
-    border-radius: 8px;
-    text-decoration: none;
-}
-
-.edit-btn:hover {
-    background: #1d4ed8;
-}
-
 .profile-link {
     color: white;
     text-decoration: none;
@@ -594,6 +512,7 @@ main {
     transform: scale(0.98);
 }
 /* --- SAVATCHA MODAL STILI --- */
+/* --- ORIGINAL SAVATCHA (AVVALGI HOLATI) --- */
 .cart-wrapper {
     display: flex;
     justify-content: center;
@@ -603,7 +522,7 @@ main {
 
 .cart-card {
     width: 420px;
-    background: #f3f3f3;
+    background: #f3f3f3; /* O'sha siz aytgan oq/och kulrang fon */
     border-radius: 14px;
     padding: 25px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.4);
@@ -612,17 +531,23 @@ main {
 .cart-title {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: #333; /* To'q matn */
 }
 
 .cart-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #e5e5e5;
+    background: #e5e5e5; /* Elementlar foni */
     padding: 12px;
     border-radius: 10px;
     margin-bottom: 15px;
+}
+
+.product-name {
+    font-weight: bold;
+    width: 120px;
+    color: #222;
 }
 
 .qty-control {
@@ -643,19 +568,13 @@ main {
     font-size: 18px;
 }
 
-.qty-input {
-    width: 40px;
-    text-align: center;
-    border: none;
-    background: transparent;
-    font-weight: bold;
-}
 
 .cart-info {
     display: flex;
     gap: 10px;
     align-items: center;
     font-size: 14px;
+    color: #333;
 }
 
 .delete-btn {
@@ -663,6 +582,7 @@ main {
     background: transparent;
     cursor: pointer;
     font-size: 18px;
+    color: #ff4b4b;
 }
 
 .cart-total {
@@ -670,30 +590,27 @@ main {
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .cart-total h3 {
     margin-top: 5px;
+    color: #000;
 }
 
 .checkout-btn {
     display: block;
     width: 100%;
-    background: #000;
+    background: #000; /* Qora tugma */
     color: #fff;
     padding: 14px;
     border-radius: 10px;
     text-align: center;
     font-weight: bold;
-    text-decoration: none; /* link chizig‘ini olib tashlaydi */
+    text-decoration: none;
     transition: 0.3s;
     border: none;
     cursor: pointer;
-}
-.product-name {
-    font-weight: bold;
-    width: 120px;
-    color: #222;
 }
 
 .checkout-btn:hover {
@@ -730,6 +647,10 @@ main {
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
 }
 
 .form-group {
@@ -820,4 +741,217 @@ main {
     .order-card {
         margin: 20px;
     }
+}
+/* Umumiy sahifa joylashuvi */
+.profile-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    gap: 30px;
+    color: #fff;
+}
+
+/* Profil kartasi */
+.profile-card-dark {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 30px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.profile-avatar-big {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 15px;
+}
+
+.profile-avatar-big img, .avatar-placeholder-big {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3b82f6;
+    background: #252525;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.edit-avatar-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #3b82f6;
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.profile-mini-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    background: #252525;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.stat-box span { display: block; font-size: 11px; color: #888; margin-bottom: 5px; }
+.stat-box strong { font-size: 14px; }
+.status-tag.admin { color: #f87171; }
+
+.edit-profile-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Buyurtmalar bo'limi */
+.orders-history-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.section-title { margin-bottom: 15px; font-size: 18px; color: #ccc; }
+
+.order-card-item {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #888;
+}
+
+.order-items-list p { font-size: 14px; margin-bottom: 5px; color: #ddd; }
+.order-items-list span { color: #888; }
+
+.order-total { font-weight: bold; color: #10b981; font-size: 18px; }
+.order-status { font-size: 12px; padding: 3px 8px; border-radius: 4px; }
+.order-status.paid { background: #064e3b; color: #34d399; }
+.order-status.pending { background: #78350f; color: #fbbf24; }
+
+/* Modal Stili */
+.modal-blur {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-blur.active { display: flex; }
+
+.modal-form-card {
+    background: #1a1a1a;
+    padding: 25px;
+    border-radius: 15px;
+    width: 350px;
+    border: 1px solid #333;
+}
+
+.field-group { margin-bottom: 15px; }
+.field-group label { display: block; font-size: 12px; color: #888; margin-bottom: 5px; }
+.field-group input {
+    width: 100%;
+    padding: 10px;
+    background: #252525;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 6px;
+}
+
+.save-changes-btn {
+    width: 100%;
+    padding: 10px;
+    background: #10b981;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.orders-scroll-area {
+    max-height: 500px; /* Ko'p buyurtma bo'lsa scroll chiqadi */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Scrollbar dizayni */
+.orders-scroll-area::-webkit-scrollbar {
+    width: 5px;
+}
+.orders-scroll-area::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+.qty-span {
+    color: #3b82f6 !important;
+    font-weight: bold;
+}
+
+.shop-now-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: bold;
+}
+/* Modal sarlavhasi va yopish tugmasini bir qatorga terish */
+.modal-close-head {
+    display: flex;
+    justify-content: space-between; /* Sarlavha chapda, X tugmasi o'ngda */
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+.modal-close-head h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #fff;
+}
+
+/* X tugmasining yangi dizayni */
+.close-modal-btn {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 0 5px;
+}
+
+.close-modal-btn:hover {
+    color: #ef4444; /* Ustiga borganda qizil rangga o'tadi */
+    transform: rotate(90deg); /* Chiroyli effekt uchun aylanish */
 }

@@ -10,7 +10,7 @@ db.sqlite3
 # Virtual environment
 venv/
 
-# Media & static (agar deploy qilinmasa)
+# Media & static 
 media/
 staticfiles/
 
