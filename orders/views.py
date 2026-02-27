@@ -10,16 +10,20 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 class OrderView(LoginRequiredMixin,View):
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.carts.total_price():
+            messages.error(request,"Kechirasiz savatchada hech narsa yoq ")
+            return redirect('news')
+        return super().dispatch(request, *args, **kwargs)
+    
     def get(self, request):
-        print(request.user)
-        return render(request,'order.html',{'user':request.user})
+        all_price=self.request.user.carts.total_price()
+        return render(request,'order.html',{'user':request.user,'all_price':all_price})
     def post(self, request):
         try:
             with transaction.atomic():
                 user=request.user
-                cart_items=CartsModel.objects.filter(user=user)
-               
-                print(request.POST.get('card_expiry'))
+                cart_items=CartsModel.objects.filter(user=user).select_related('product')
 
                 if cart_items.exists():
                     order=Order.objects.create(
@@ -48,6 +52,6 @@ class OrderView(LoginRequiredMixin,View):
                 cart_items.delete()
                 messages.success(request,"Zakaz qabul qilindi")
                 return redirect('profile')
-        except ValidationError as error:
+        except (ValidationError,Exception) as error:
             messages.error(request, str(error))
             return redirect('order')

@@ -48,7 +48,9 @@
         </div>
 
         <!-- Checkout -->
-        {% if carts.total_quantity %}
+        {% if user.is_anonymous %}
+            <a href="{% url 'reg' %}" class="checkout-btn">Zakazni Qabul qilish</a>
+        {% elif carts.total_quantity %}
             <a href="{% url 'order' %}" class="checkout-btn">Zakazni Qabul qilish</a>
         {% else %}
             <a href="{% url 'news' %}" class="checkout-btn">

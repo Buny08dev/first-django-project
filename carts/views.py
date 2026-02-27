@@ -3,14 +3,14 @@ from django.views.generic import View,ListView,DeleteView
 from bun_core.models import Products
 from carts.models import CartsModel
 from django.http import JsonResponse, Http404
-from django.urls import reverse_lazy
+# from django.urls import reverse_lazy
 from django.db.models import F
 # Create your views here.
 
 class CartsAddView(View):
     def post(self,request,slug):
         # print(request.POST)
-        quantity=int(request.POST.get('quantity')[0])
+        quantity=int(request.POST.get('quantity'))
         product=Products.objects.get(slug=slug)
         if request.user.is_authenticated:
             carts=CartsModel.objects.filter(user=request.user,product=product)

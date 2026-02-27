@@ -447,7 +447,7 @@ main {
 .qty-input {
     background: transparent;
     border: none;
-    color: white;
+    color: rgb(0, 0, 0);
     width: 50px;
     text-align: center;
     font-size: 16px;
