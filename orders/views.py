@@ -11,13 +11,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class OrderView(LoginRequiredMixin,View):
     def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.carts.total_price():
+        if not self.request.user.carts.select_related('product').total_price():
             messages.error(request,"Kechirasiz savatchada hech narsa yoq ")
             return redirect('news')
         return super().dispatch(request, *args, **kwargs)
     
     def get(self, request):
-        all_price=self.request.user.carts.total_price()
+        all_price=self.request.user.carts.select_related('product').total_price()
         return render(request,'order.html',{'user':request.user,'all_price':all_price})
     def post(self, request):
         try:

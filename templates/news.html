@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% load static %}
+{% load cache %}
 {% load tags %}
 
 {% block title %} News {% endblock %}
@@ -10,9 +11,11 @@
     <div class="nav-left">
         <a href="{% url 'news' %}" class="nav-brand">ALL</a>
         <ul class="nav-links">
+            {% cache 360 categories %}
             {% for i in categories %}
                 <li><a href="?{% change_page_filter cat_slug=i.slug %}" class="active">{{ i }}</a></li>
             {% endfor %}
+            {% endcache %}
         </ul>
     </div>
 

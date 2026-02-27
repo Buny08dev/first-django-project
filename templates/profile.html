@@ -41,10 +41,10 @@
                     </div>
                     <div class="order-body">
                         <div class="order-items-list">
-                                <p>{{ order.orderitem.first.product.name }} — <span class="qty-span">{{ order.orderitem.first.quantity }} ta</span></p>
+                                <p>{{ order.orderitem.all.0.product.name }} — <span class="qty-span">{{ order.orderitem.all.0.quantity }} ta</span></p>
                         </div>
                         <div class="order-summary">
-                            <span class="order-total">{{ order.orderitem.first.product_price }}$</span>
+                            <span class="order-total">{{ order.orderitem.all.0.product_price }}$</span>
                             <span class="order-status {% if order.is_paid %}paid{% else %}pending{% endif %}">
                                 {% if order.is_paid %}To'langan{% else %}Kutilmoqda{% endif %}
                             </span>

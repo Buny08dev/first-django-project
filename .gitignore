@@ -19,3 +19,4 @@ staticfiles/
 .idea/
 
 products_json/
+cache/

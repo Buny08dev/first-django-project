@@ -22,7 +22,7 @@ from django.views.decorators.cache import never_cache
 
 # Create your views here.
 class AnonymousRequiredMixin:
-    @method_decorator(never_cache) # Keshni o'chirish
+    # @method_decorator(never_cache) # Keshni o'chirish
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             # bu yerda not page orniga maxsus joy
@@ -49,10 +49,6 @@ class Registerview(AnonymousRequiredMixin,FormView):
 class Loginview(AnonymousRequiredMixin,FormView):
     form_class=LoginForm
     template_name='login.html'
-    
-    # def dispatch(self, request, *args, **kwargs):
-    #     # print(time.time())
-    #     return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self,form:LoginForm):
         
