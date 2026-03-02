@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+<style>
+/* Umumiy sozlamalar */
+body {
+    background-color: #1a1a1a; /* Saytning asosiy foni */
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.verify-card {
+    background-color: #252525; /* Profil kartasi foni bilan bir xil */
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid #333;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+p {
+    color: #a0a0a0;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* Email ko'rsatilgan qator */
+.email-box {
+    background-color: #1e1e1e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #3d3d3d;
+    margin-bottom: 30px;
+    color: #888;
+}
+
+.email-addr {
+    margin: 0 10px;
+    font-size: 14px;
+}
+
+/* Raqam kiritish katakchalari */
+.otp-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.otp-group input {
+    width: 45px;
+    height: 55px;
+    background-color: #1e1e1e;
+    border: 2px solid #3d3d3d;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.otp-group input:focus {
+    border-color: #4a90e2; /* Saytdagi ko'k rang */
+    outline: none;
+    box-shadow: 0 0 10px rgba(74, 144, 226, 0.3);
+}
+
+/* "Profilni tahrirlash" uslubidagi tugma */
+.verify-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #4a90e2; /* Saytdagi ko'k tugma rangi */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-bottom: 20px;
+}
+
+.verify-btn:hover {
+    background-color: #357abd;
+}
+
+/* Pastki havola */
+.footer-links a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+/* Email badge dizayni */
+.email-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05); /* Juda yengil shaffoflik */
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 30px;
+}
+
+.email-text {
+    color: #4a90e2; /* Email ko'k rangda, e'tiborni tortadi */
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.edit-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* OTP inputlar uchun fokus effekti */
+.otp-input:focus {
+    border-color: #4a90e2;
+    background: rgba(74, 144, 226, 0.1);
+    box-shadow: 0 0 15px rgba(74, 144, 226, 0.2);
+}
+</style>
+</head>
+<body>
+
+<div class="verify-card">
+    <h1>Verify your email</h1>
+    <p>We sent you a 6-digit code to your email address</p>
+
+    <div class="email-badge">
+        <span class="email-text">goldazamat08@gmail.com</span>
+        <button class="edit-btn">✏️</button>
+    </div>
+
+    <div class="otp-group">
+        <input type="text" class="otp-input" maxlength="1">
+        <input type="text" class="otp-input" maxlength="1">
+        <input type="text" class="otp-input" maxlength="1">
+        <input type="text" class="otp-input" maxlength="1">
+        <input type="text" class="otp-input" maxlength="1">
+        <input type="text" class="otp-input" maxlength="1">
+    </div>
+
+    <!-- <button class="verify-btn">Verify Account</button> -->
+    <div class="footer-links">
+        <a href="{% url 'verifycor' %}">Didn't receive the code?</a>
+    </div>
+</div>
+<style>
+/* Shake animatsiyasini qo'shib qo'ying */
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+.otp-input.error {
+    border-color: #ff3333 !important;
+}
+</style>
+<script>
+const inputs = document.querySelectorAll('.otp-input');
+// Agar HTMLda status-message bo'lmasa, xatolik chiqmasligi uchun yaratib olamiz
+let statusMessage = document.getElementById('status-message');
+if (!statusMessage) {
+    statusMessage = document.createElement('div');
+    statusMessage.id = 'status-message';
+    document.querySelector('.verify-card').appendChild(statusMessage);
+}
+
+inputs.forEach((input, index) => {
+    // 1. Kiritish hodisasi (Har bir belgi yozilganda)
+    input.addEventListener('input', (e) => {
+        const val = e.target.value;
+
+        // Agar bitta belgi yozilsa, keyingisiga o'tish
+        if (val.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        }
+
+        // --- ASOSIY QISM: Tekshirish ---
+        // Har safar belgi yozilganda barcha kataklarni tekshiramiz
+        const code = Array.from(inputs).map(i => i.value).join('');
+        
+        if (code.length === 6) {
+            // Agar 6 ta belgi to'lsa, avtomatik funksiyani chaqiramiz
+            verifyCode(code);
+        }
+    });
+
+    // 2. Backspace (Siz so'ragan funksiya - o'chirish va qaytish)
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace') {
+            if (input.value === '' && index > 0) {
+                inputs[index - 1].focus();
+                inputs[index - 1].value = '';
+                // Xatolik xabarini tozalash
+                statusMessage.innerText = "";
+                inputs.forEach(i => i.style.borderColor = "#3d3d3d");
+            }
+        }
+    });
+});
+
+// 3. Kodni Django API ga yuborish
+function verifyCode(code) {
+    statusMessage.style.color = "#4a90e2";
+    statusMessage.innerText = "Tekshirilmoqda...";
+
+    fetch('/users/verify/', { // Sizning URL manzilingiz
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({ 'code': code })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            statusMessage.style.color = "#4caf50";
+            statusMessage.innerText = "Muvaffaqiyatli! Yo'naltirilmoqda...";
+            setTimeout(() => {
+                window.location.href = data.redirect_url || '/';
+            }, 1000);
+        } else {
+            statusMessage.style.color = "#ff3333";
+            statusMessage.innerText = data.message || "Kod xato!";
+            
+            // Xato bo'lsa qizil silkinish effekti
+            inputs.forEach(i => i.style.borderColor = "#ff3333");
+            document.querySelector('.otp-group').classList.add('shake');
+            setTimeout(() => {
+                document.querySelector('.otp-group').classList.remove('shake');
+            }, 500);
+        }
+    })
+    .catch(error => {
+        console.error('Xato:', error);
+        statusMessage.innerText = "Aloqa xatosi!";
+    });
+}
+
+// CSRF tokenni olish (Djangoda bu shart)
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+</body>
+</html>

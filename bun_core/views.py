@@ -53,7 +53,7 @@ class NewsView(ListView):
     
     def get_queryset(self,*args,**kwargs):
         queryset = super().get_queryset(*args,**kwargs)
-
+        print(self.request.session.get('verification_chance', 0))
         # print("\n",queryset,"\nqueryset:",queryset.filter(name="IPhone 13"))
         form = SearchForm(self.request.GET)
         if form.is_valid():
@@ -100,7 +100,7 @@ class ProductView(DetailView):
 
 class AboutView(TemplateView):
     template_name="about.html"
-
+    
 def create_(request):
     if request.method=="POST":
         # print("ishladi")
@@ -133,7 +133,8 @@ def test(request):
     # print(request.GET)
     # pagenation=Paginator(get_list_or_404(Products),2)
     # page_product=pagenation.page(page)
-    return render(request,"test.html")
+    print(request.body)
+    return render(request,"verify.html")
 
 # Created your views here.
 

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 # registratsiya bolimi bilan ishlash
 from django.contrib.auth import logout,login,authenticate
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 # form va kerakli importlar
 from bun_users.forms import LoginForm,RegisterForm
 from django.views.generic import TemplateView,FormView
@@ -9,16 +9,28 @@ from django.views import View
 from django.urls import reverse_lazy
 from django.contrib import messages
 from carts.models import CartsModel
-from orders.models import OrderItem,Order
+from orders.models import Order
 # from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 # keshlar bilan ishlash
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
+# from django.utils.decorators import method_decorator
+# from django.views.decorators.cache import never_cache
+
 # pip install django-phonenumber-field
+import random
+import string
+from django.core.mail import send_mail
+from django.conf import settings
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt # O'rganish uchun, real loyihada CSRF token ishlating
+import json
+from django.urls import reverse
+from bun_users.models import UserMod
 # import time
 
-
+def generate_code():
+    characters = string.ascii_uppercase + string.digits
+    return ''.join(random.choices(characters, k=6))
 
 # Create your views here.
 class AnonymousRequiredMixin:
@@ -45,6 +57,49 @@ class Registerview(AnonymousRequiredMixin,FormView):
         messages.success(self.request,f'Xush kelibsiz {user.username}')
         return super().form_valid(form)
 
+class VerifyEmailView(LoginRequiredMixin,TemplateView):
+    template_name = 'verify.html'
+    success_url = reverse_lazy('profile')
+    code=generate_code()
+
+    def get(self, request, *args, **kwargs):
+        chance = request.session.get('verification_chance', 0)
+        print('----',chance)
+        if chance==0:
+            send_mail(
+                subject="Email tasdiqlash kodi",
+                message=f"Sizning tasdiqlash kodingiz: {self.code}",
+                from_email='bunshop08',
+                recipient_list=[self.request.user.email],
+            )
+            request.session['verification_chance'] = 1
+        return super().get(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            user_code = data.get('code')
+
+            if user_code == self.code:
+                del request.session['verification_chance']
+                UserMod.objects.update(is_email_verified=True)
+                return JsonResponse({
+                    'status': 'success', 
+                    'message': 'Kod tasdiqlandi!',
+                    'redirect_url': reverse('profile')
+                })
+            else:
+                return JsonResponse({
+                    'status': 'error', 
+                    'message': 'Xato kod kiritildi. Qayta urinib ko\'ring.'
+                }, status=400)
+                
+        except json.JSONDecodeError:
+            return JsonResponse({'status': 'error', 'message': 'Ma\'lumot formati noto\'g\'ri.'}, status=400)
+        
+class ResendCodeView(LoginRequiredMixin, View):
+    def get(self,request):
+        del request.session['verification_chance']
+        return redirect('verify')
 
 class Loginview(AnonymousRequiredMixin,FormView):
     form_class=LoginForm

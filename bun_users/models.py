@@ -13,6 +13,8 @@ class UserMod(AbstractUser):
         null=True,
         verbose_name="Telefon raqam"
     )
+    is_email_verified = models.BooleanField(default=False,blank=True,null=True)
+
     def __str__(self):
         return self.username
     

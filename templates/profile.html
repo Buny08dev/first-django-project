@@ -27,6 +27,9 @@
             </div>
         </div>
         <button class="edit-profile-btn" onclick="toggleModal()">Profilni tahrirlash</button>
+        {% if not user.is_email_verified %}
+            <a href="{% url 'verify' %}" class="shop-now-link">Verify Email ➔</a>
+        {% endif %}
     </div>
 
     <div class="orders-history-container">
