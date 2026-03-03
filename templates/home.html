@@ -7,37 +7,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/home.css' %}">
 </head>
 <body>
 
 <main>
-    <div class="top-navbar">
-        <div class="nav-left">
-            <a href="#" class="nav-brand">Bunyod</a>
-            <ul class="nav-links">
-                <li><a href="{% url func.news.url %}" class="active">News</a></li>
-                <li><a href="{% url func.about.url %}" class="active">About</a></li>
-                <li><a href="{% url func.test.url %}" class="active">Test</a></li>
-                <li><a href="{% url 'api-list' %}" class="active">Api</a></li>
-            </ul>
-        </div> 
-        
-        <form class="search-form">
-            <input type="text" placeholder="Search" aria-label="Search">
-            <button type="submit">Search</button>
-        </form>
-    </div>
+<main>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Xush kelibsiz, <span class="highlight">{{ user.username|default:"Mehmon" }}</span>!</h1>
+            <p>Eng so'nggi texnologiyalar va yangiliklar olamiga xush kelibsiz. Bunyod platformasida siz o'zingizga kerakli barcha gadjetlarni topishingiz mumkin.</p>
+            <div class="hero-buttons">
+                <a href="{% url 'news' %}" class="btn-primary">Yangiliklarni ko'rish</a>
+                <a href="{% url 'about' %}" class="btn-outline">Biz haqida</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="categories">
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Telefonlar</h3>
+            <p>Eng oxirgi modeldagi smartfonlar.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💻</div>
+            <h3>Kompyuterlar</h3>
+            <p>Ish va o'yin uchun kuchli noutbuklar.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎧</div>
+            <h3>Aksessuarlar</h3>
+            <p>Sifatli quloqchinlar va gadjetlar.</p>
+        </div>
+    </section>
 </main>
-    {% if user.is_authenticated %}
-        <h2>Xush kelibsiz, {{ user.username }}!</h2>
-    {% endif %}
-
-    {{ user }}
-
-    
-    <h1>{{title|title}}</h1>
-    <h1>{{ func.test.url }}</h1>
+</main>
 
 </body>
 </html>

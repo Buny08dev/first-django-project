@@ -2,10 +2,53 @@
 
 
 {% block content_1 %} 
-<h1>About</h1>
-<p>Xush kelibsiz About sahifaga</p>
-{% endblock %}
+<div class="about-container">
+    <section class="about-hero">
+        <h1 class="about-title">Biz haqimizda</h1>
+        <p class="about-subtitle">Sayt django frameworkda qilingan va Postgresql database ulangan!</p>
+    </section>
 
+    <div class="about-grid">
+        <div class="about-card">
+            <div class="about-icon">➕</div>
+            <h3>Saytni Plusi</h3>
+
+            <p>Productlarda filter va search ishlaydi</p>
+            <p>Login va registratsiya zor</p>
+            <p> 🗑️Savatcha va zakazlar bor</p>
+            <p>Email bilan ishlash bor</p>
+            <p>User profile chiroyli</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon">➖</div>
+            <h3>Sayt minusi</h3>
+            <p>Tezligi ortacha</p>
+            <p>html css va js lari oddiy</p>
+            <p>Telefon tekshirish yoq</p>
+            <p>Search mukammal emas</p>
+            <p>(Hozircha)Validatsiyalar kam</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon">🎧</div>
+            <h3>Sayt Kelajaki</h3>
+            <p>Sayt prosto kommerchiskiy loyiha va u Kelajakda rivojlanmaydi!</p>
+        </div>
+        <div class="about-card">
+            <div class="about-icon">🔮</div>
+            <h3>Kelajakdagi maqsad</h3>
+            <p>Redis,Celery va Dockerlar bilan ishlashni organish va bu saytdan tashqari proyektlarda ishlash!</p>
+        </div>
+    </div>
+
+    <section class="about-footer">
+        <h2>Biz bilan bog'laning</h2>
+        <p>Savol yoki takliflaringiz bo'lsa, bizga murojaat qiling: <b>+998995645154</b></p>
+        <p>Va saytimizni onlayn korishingiz mumkin:<b>bunshop08.eu.pythonanywhere.com</b></p>
+    </section>
+</div>
+{% endblock %}
 
 
 {% block url_1 %} <a href="{% url 'home' %}">🏠 Asosiy</a> {% endblock %}

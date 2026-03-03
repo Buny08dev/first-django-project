@@ -53,7 +53,7 @@ class NewsView(ListView):
     
     def get_queryset(self,*args,**kwargs):
         queryset = super().get_queryset(*args,**kwargs)
-        print(self.request.session.get('verification_chance', 0))
+        # print(self.request.session.get('verification_chance', 0))
         # print("\n",queryset,"\nqueryset:",queryset.filter(name="IPhone 13"))
         form = SearchForm(self.request.GET)
         if form.is_valid():

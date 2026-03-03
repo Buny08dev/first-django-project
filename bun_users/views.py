@@ -98,7 +98,8 @@ class VerifyEmailView(LoginRequiredMixin,TemplateView):
         
 class ResendCodeView(LoginRequiredMixin, View):
     def get(self,request):
-        del request.session['verification_chance']
+        if request.session.get('verification_chance', 0):        
+            del request.session['verification_chance']
         return redirect('verify')
 
 class Loginview(AnonymousRequiredMixin,FormView):

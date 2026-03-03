@@ -1,80 +1,120 @@
-/* Top Navbar Dizayni */
-.top-navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #1e1e1e; /* Aside bilan bir xil fon */
-    padding: 15px 25px;
-    border-radius: 8px;
-    margin-bottom: 25px; /* Pastdagi kontentdan masofa */
+body {
+    background-color: #121212; /* Juda to'q kulrang, deyarli qora */
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+main {
+    max-width: 1100px; /* Sayt juda kengayib ketmaydi */
+    margin: 0 auto;    /* O'rtaga tekislash */
+    padding: 20px !important;
+}
+/* Hero Section Dizayni */
+.hero-section {
+    background: linear-gradient(145deg, #1e1e1e, #141414);
+    padding: 50px 30px; /* 80px dan 50px ga kamaytirdik */
+    border-radius: 16px;
+    margin-bottom: 30px;
+    text-align: center;
     border: 1px solid #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-.nav-left {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.nav-brand {
+.hero-content h1 {
+    font-size: 32px; /* 42px dan 32px ga */
+    margin-bottom: 12px;
     color: white;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
 }
 
-.nav-links {
+.highlight {
+    color: #4a90e2; /* Moviy rang, tugmalaringizga mos */
+}
+
+.hero-content p {
+    color: #aaa;
+    margin: 0 auto 30px;
+    font-size: 15px; /* 18px dan 15px ga */
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+/* Tugmalar */
+.hero-buttons {
     display: flex;
-    list-style: none;
+    justify-content: center;
     gap: 15px;
 }
 
-.nav-links a {
-    color: #999;
+.btn-primary {
+    background: #4a90e2;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 8px;
     text-decoration: none;
+    font-weight: 600;
     transition: 0.3s;
 }
 
-.nav-links a:hover, .nav-links a.active {
-    color: white;
+.btn-primary:hover {
+    background: #357abd;
+    transform: translateY(-2px);
 }
 
-/* Qidiruv qismi */
-.search-form {
-    display: flex;
-    gap: 10px;
+.btn-outline {
+    border: 1px solid #4a90e2;
+    color: #4a90e2;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-.search-form input {
-    background: #2f2f2f;
-    border: 1px solid #444;
-    border-radius: 6px;
-    padding: 8px 12px;
-    color: white;
-    outline: none;
-    width: 200px;
+.btn-outline:hover {
+    background: rgba(74, 144, 226, 0.1);
 }
 
-.search-form input:focus {
-    border-color: #198754;
+/* Feature Cards (Kategoriyalar uchun) */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
 }
 
-.search-form button {
-    background: transparent;
-    color: #198754;
-    border: 1px solid #198754;
-    padding: 8px 16px;
-    border-radius: 6px;
+.feature-card {
+    background: #252525;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    transition: 0.3s;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.search-form button:hover {
-    background: #198754;
+.feature-card:hover {
+    border-color: #4a90e2;
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.feature-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
     color: white;
 }
 
-/* Main paddingini biroz moslash */
-main {
-    padding: 20px 40px !important;
+.feature-card p {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #888;
+    font-size: 14px;
+}
+.hero-section, .feature-card {
+    background-color: #1e1e1e; /* Fondan biroz ochroq */
+    border: 1px solid #333333; /* Nozik chegara */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Chuqurlik berish uchun soya */
 }
