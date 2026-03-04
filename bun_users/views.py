@@ -64,13 +64,14 @@ class VerifyEmailView(LoginRequiredMixin,TemplateView):
 
     def get(self, request, *args, **kwargs):
         chance = request.session.get('verification_chance', 0)
-        print('----',chance)
+        # print('----',chance)
         if chance==0:
             send_mail(
                 subject="Email tasdiqlash kodi",
                 message=f"Sizning tasdiqlash kodingiz: {self.code}",
-                from_email='bunshop08',
+                from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[self.request.user.email],
+                fail_silently=True
             )
             request.session['verification_chance'] = 1
         return super().get(request, *args, **kwargs)
