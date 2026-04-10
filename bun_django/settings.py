@@ -33,9 +33,15 @@ secret_key = os.getenv('SECRET_KEY')
 SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+if os.getenv('ALLOWED_HOST'):
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOST').split()
+else:
+    ALLOWED_HOSTS=['*']
+
+if os.getenv('CSRF_TRUSTED_ORIGINS'):
+    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split()
 
 
 # Application definition
@@ -154,13 +160,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-
-STATICFILES_DIRS=[
-    BASE_DIR / 'static'
-]
-
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static'
+    ]
+else:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static'
+    ]
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'

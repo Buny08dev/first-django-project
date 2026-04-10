@@ -30,7 +30,8 @@ class CartsModel(models.Model):
         verbose_name_plural="savatchalar"
 
     def __str__(self):
-        return f"Savatcha:{self.user.username if self.user else "Anonimus"} | Product:{self.product.name} | Soni:{self.quantity}"
+        username = (self.user.username if self.user else "Anonimus")
+        return f"Savatcha:{username} | Product:{self.product.name} | Soni:{self.quantity}"
     
     def purchase(self):
         return round(self.product.change_price()*self.quantity,2)
